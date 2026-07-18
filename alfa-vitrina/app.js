@@ -116,11 +116,10 @@
         (p) => `
       <div class="product-card" data-id="${p.id}">
         <div class="product-card-img">${isImageUrl(p.image) ? `<img src="${p.image}" alt="${p.name}">` : p.image}</div>
+        <button class="delete-product" type="button" data-id="${p.id}">Удалить</button>
         <div class="product-card-body">
           <div class="product-card-title">${escapeHtml(p.name)}</div>
           <div class="product-card-price">${formatPrice(p.price)}</div>
-          <div class="product-card-desc">${escapeHtml(p.desc || "")}</div>
-          <button class="btn btn-secondary delete-product" style="margin-top: 12px; width: 100%; padding: 10px;" data-id="${p.id}">Удалить</button>
         </div>
       </div>
     `
@@ -160,25 +159,61 @@
     grid.innerHTML = products
       .map(
         (p) => `
-      <div class="showcase-card">
+      <article class="showcase-card" data-product-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${escapeHtml(p.name)}">
         <div class="showcase-card-img">${isImageUrl(p.image) ? `<img src="${p.image}" alt="${p.name}">` : p.image}</div>
         <div class="showcase-card-body">
           <h3 class="showcase-card-title">${escapeHtml(p.name)}</h3>
           <div class="showcase-card-price">${formatPrice(p.price)}</div>
-          <p class="showcase-card-desc">${escapeHtml(p.desc || "")}</p>
-          <button class="btn btn-primary buy-button" style="width: 100%;" data-name="${escapeHtml(p.name)}" data-price="${p.price}">Купить</button>
         </div>
-      </div>
+      </article>
     `
       )
       .join("");
 
-    grid.querySelectorAll(".buy-button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const name = btn.dataset.name;
-        const price = btn.dataset.price;
-        alert(`Переход к оплате: ${name} — ${formatPrice(price)}\n\nВ реальном продукте здесь откроется платёжная форма Альфа-Банка.`);
+    const dialog = document.getElementById("productDialog");
+    const dialogImage = document.getElementById("dialogProductImage");
+    const dialogTitle = document.getElementById("dialogProductTitle");
+    const dialogPrice = document.getElementById("dialogProductPrice");
+    const dialogDesc = document.getElementById("dialogProductDesc");
+    const dialogCategory = document.getElementById("dialogProductCategory");
+    const dialogBuyButton = document.getElementById("dialogBuyButton");
+    let selectedProduct = null;
+
+    function openProduct(product) {
+      if (!dialog) return;
+      selectedProduct = product;
+      dialogImage.innerHTML = isImageUrl(product.image)
+        ? `<img src="${product.image}" alt="${escapeHtml(product.name)}">`
+        : `<span>${escapeHtml(product.image)}</span>`;
+      dialogTitle.textContent = product.name;
+      dialogPrice.textContent = formatPrice(product.price);
+      dialogDesc.textContent = product.desc || "Подробное описание появится позже.";
+      dialogCategory.textContent = product.category || "Товар";
+      dialog.showModal();
+
+      if (window.gsap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        window.gsap.fromTo(".product-dialog-layout", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.35, ease: "power3.out" });
+      }
+    }
+
+    grid.querySelectorAll(".showcase-card").forEach((card) => {
+      const open = () => openProduct(products.find((product) => product.id === card.dataset.productId));
+      card.addEventListener("click", open);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          open();
+        }
       });
+    });
+
+    document.getElementById("closeProductDialog")?.addEventListener("click", () => dialog.close());
+    dialog?.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialogBuyButton?.addEventListener("click", () => {
+      if (!selectedProduct) return;
+      alert(`Переход к оплате: ${selectedProduct.name} — ${formatPrice(selectedProduct.price)}\n\nВ реальном продукте здесь откроется платёжная форма Альфа-Банка.`);
     });
   }
 

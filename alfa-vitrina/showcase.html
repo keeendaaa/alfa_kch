@@ -41,6 +41,27 @@
     </div>
   </section>
 
+  <dialog id="productDialog" class="product-dialog" aria-labelledby="dialogProductTitle">
+    <div class="product-dialog-layout">
+      <div id="dialogProductImage" class="product-dialog-image"></div>
+      <div class="product-dialog-content">
+        <div class="product-dialog-topline">
+          <span id="dialogProductCategory" class="product-dialog-category"></span>
+          <button id="closeProductDialog" class="dialog-close" type="button">Закрыть</button>
+        </div>
+        <h2 id="dialogProductTitle"></h2>
+        <div id="dialogProductPrice" class="product-dialog-price"></div>
+        <p id="dialogProductDesc" class="product-dialog-desc"></p>
+        <div class="product-dialog-meta">
+          <div><span>Размеры</span><strong>36–45</strong></div>
+          <div><span>Доставка</span><strong>По России</strong></div>
+          <div><span>Оплата</span><strong>Карта или СБП</strong></div>
+        </div>
+        <button id="dialogBuyButton" class="btn btn-primary product-dialog-buy" type="button">Купить</button>
+      </div>
+    </div>
+  </dialog>
+
   <section class="section section-pink">
     <div class="container-narrow text-center">
       <h2 class="section-title">Хочешь такую же витрину?</h2>
