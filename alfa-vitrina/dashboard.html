@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет — Alfa Витрина</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <a href="index.html" class="sidebar-logo"><span><img src="https://alfabank.servicecdn.ru/site-upload/25/fd/7064/Logo_D_white.svg" alt=""></span> Альфа Витрина</a>
+      <ul class="sidebar-menu">
+        <li><a href="#products" class="sidebar-link active" data-dashboard-link="products"><span>01</span> Мои товары</a></li>
+        <li><a href="showcase.html" target="_blank" class="sidebar-link"><span>02</span> Витрина</a></li>
+        <li><a href="#orders" class="sidebar-link" data-dashboard-link="orders"><span>03</span> Заказы</a></li>
+        <li><a href="#payments" class="sidebar-link" data-dashboard-link="payments"><span>04</span> Оплаты</a></li>
+        <li><a href="#products" class="sidebar-link"><span>05</span> Настройки</a></li>
+      </ul>
+      <img class="sidebar-art" src="https://alfabank.servicecdn.ru/site-upload/96/3c/21616/12.png" alt="" aria-hidden="true">
+    </aside>
+
+    <main class="main">
+      <div class="dashboard-view dashboard-content" data-dashboard-view="products">
+        <div class="panel">
+          <h1 class="panel-title">Настройки витрины</h1>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label for="shopName">Название магазина</label>
+              <input type="text" id="shopName" placeholder="Например, Кроссовки от Кирилла" value="Кроссовки 36-45">
+            </div>
+            <div class="form-group full">
+              <label for="shopDesc">Описание витрины</label>
+              <textarea id="shopDesc" placeholder="Расскажи, что ты продаёшь">Оригинальные кроссовки и удобная городская обувь. Доставка по всей России.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">Добавить товар</h2>
+          <form id="productForm" class="form-grid">
+            <div class="form-group">
+              <label for="productName">Название</label>
+              <input type="text" id="productName" placeholder="Например, Nike Air Force" required>
+            </div>
+            <div class="form-group">
+              <label for="productPrice">Цена, ₽</label>
+              <input type="number" id="productPrice" placeholder="4990" min="1" required>
+            </div>
+            <div class="form-group">
+              <label for="productImage">Фото (эмодзи или URL)</label>
+              <input type="text" id="productImage" placeholder="👟 или https://..." value="👟">
+            </div>
+            <div class="form-group">
+              <label for="productCategory">Категория</label>
+              <select id="productCategory">
+                <option>Кроссовки</option>
+                <option>Одежда</option>
+                <option>Аксессуары</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="productDesc">Описание</label>
+              <textarea id="productDesc" placeholder="Размер, цвет, материал..."></textarea>
+            </div>
+            <div class="form-group full">
+              <button type="button" id="aiGenerate" class="btn btn-green">Сгенерировать описание с AI</button>
+            </div>
+            <div class="form-group full">
+              <button type="submit" class="btn btn-primary">Добавить товар</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">Мои товары</h2>
+          <div id="productList" class="product-list">
+            <div class="empty-state">
+              <div class="empty-state-icon">🛍️</div>
+              <p>Пока нет товаров. Добавь первый выше.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-title">Ссылка на витрину</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 16px;">Отправь эту ссылку клиентам или размести в соцсетях.</p>
+          <div class="share-box">
+            <input type="text" id="showcaseLink" readonly value="https://alfa-vitrina.ru/s/krossovki36-45">
+            <button id="copyLink" class="btn btn-secondary">Копировать</button>
+            <a href="showcase.html" target="_blank" class="btn btn-outline">Открыть</a>
+          </div>
+        </div>
+      </div>
+
+      <section class="dashboard-view crm-view" data-dashboard-view="orders" hidden>
+        <div class="crm-heading">
+          <div>
+            <span class="crm-eyebrow">CRM / продажи</span>
+            <h1>Заказы</h1>
+            <p>Контролируй путь заказа от оплаты до получения клиентом.</p>
+          </div>
+          <button class="btn btn-primary" type="button">Создать заказ</button>
+        </div>
+
+        <div class="crm-metrics">
+          <article class="crm-metric crm-metric-accent">
+            <span>Выручка за июль</span>
+            <strong>84 360 ₽</strong>
+            <small>На 18% больше июня</small>
+          </article>
+          <article class="crm-metric">
+            <span>Новые</span>
+            <strong>8</strong>
+            <small>Нужна обработка</small>
+          </article>
+          <article class="crm-metric">
+            <span>В работе</span>
+            <strong>5</strong>
+            <small>Сборка и доставка</small>
+          </article>
+          <article class="crm-metric">
+            <span>Средний чек</span>
+            <strong>8 436 ₽</strong>
+            <small>10 оплаченных заказов</small>
+          </article>
+        </div>
+
+        <div class="panel crm-panel">
+          <div class="crm-panel-head">
+            <div>
+              <h2 class="panel-title">Все заказы</h2>
+              <p>Последнее обновление только что</p>
+            </div>
+            <div class="crm-filters" aria-label="Фильтр заказов">
+              <button type="button" class="crm-filter active" data-order-filter="all">Все</button>
+              <button type="button" class="crm-filter" data-order-filter="new">Новые</button>
+              <button type="button" class="crm-filter" data-order-filter="work">В работе</button>
+              <button type="button" class="crm-filter" data-order-filter="done">Завершены</button>
+            </div>
+          </div>
+
+          <div class="crm-table crm-orders-table">
+            <div class="crm-table-head">
+              <span>Заказ</span><span>Клиент</span><span>Состав</span><span>Статус</span><span>Сумма</span><span></span>
+            </div>
+            <article class="crm-row" data-order-status="new">
+              <div data-label="Заказ"><strong>#1048</strong><small>Сегодня, 12:34</small></div>
+              <div data-label="Клиент"><strong>Анна Соколова</strong><small>Telegram</small></div>
+              <div data-label="Состав"><strong>New Balance 530</strong><small>1 товар</small></div>
+              <div data-label="Статус"><span class="status status-new">Новый</span></div>
+              <div data-label="Сумма"><strong>9 490 ₽</strong><small class="paid">Оплачен</small></div>
+              <button type="button" class="row-action">Открыть</button>
+            </article>
+            <article class="crm-row" data-order-status="work">
+              <div data-label="Заказ"><strong>#1047</strong><small>Сегодня, 10:18</small></div>
+              <div data-label="Клиент"><strong>Максим Орлов</strong><small>Телефон</small></div>
+              <div data-label="Состав"><strong>Adidas Samba</strong><small>1 товар</small></div>
+              <div data-label="Статус"><span class="status status-work">Доставка</span></div>
+              <div data-label="Сумма"><strong>7 990 ₽</strong><small class="paid">Оплачен</small></div>
+              <button type="button" class="row-action">Открыть</button>
+            </article>
+            <article class="crm-row" data-order-status="work">
+              <div data-label="Заказ"><strong>#1046</strong><small>Вчера, 19:42</small></div>
+              <div data-label="Клиент"><strong>Елена Ким</strong><small>VK</small></div>
+              <div data-label="Состав"><strong>Nike Air Force 1</strong><small>2 товара</small></div>
+              <div data-label="Статус"><span class="status status-work">Сборка</span></div>
+              <div data-label="Сумма"><strong>17 980 ₽</strong><small class="paid">Оплачен</small></div>
+              <button type="button" class="row-action">Открыть</button>
+            </article>
+            <article class="crm-row" data-order-status="done">
+              <div data-label="Заказ"><strong>#1045</strong><small>18 июля, 16:05</small></div>
+              <div data-label="Клиент"><strong>Илья Волков</strong><small>Telegram</small></div>
+              <div data-label="Состав"><strong>New Balance 530</strong><small>1 товар</small></div>
+              <div data-label="Статус"><span class="status status-done">Получен</span></div>
+              <div data-label="Сумма"><strong>9 490 ₽</strong><small class="paid">Оплачен</small></div>
+              <button type="button" class="row-action">Открыть</button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-view crm-view" data-dashboard-view="payments" hidden>
+        <div class="crm-heading">
+          <div>
+            <span class="crm-eyebrow">Финансы / эквайринг</span>
+            <h1>Оплаты</h1>
+            <p>Баланс, поступления и возвраты по всем заказам витрины.</p>
+          </div>
+          <button class="btn btn-outline" type="button">Скачать отчёт</button>
+        </div>
+
+        <div class="balance-card">
+          <div>
+            <span>Доступно к выводу</span>
+            <strong>76 420,80 ₽</strong>
+            <p>Следующее зачисление на счёт сегодня</p>
+          </div>
+          <button class="btn btn-white" type="button">Вывести деньги</button>
+          <div class="balance-orbit" aria-hidden="true"></div>
+        </div>
+
+        <div class="payment-metrics">
+          <article><span>Поступило за месяц</span><strong>84 360 ₽</strong><small>12 платежей</small></article>
+          <article><span>Ожидает зачисления</span><strong>7 939,20 ₽</strong><small>1 платёж</small></article>
+          <article><span>Комиссия</span><strong>2 169,20 ₽</strong><small>2,5% от оборота</small></article>
+        </div>
+
+        <div class="panel crm-panel">
+          <div class="crm-panel-head">
+            <div>
+              <h2 class="panel-title">История операций</h2>
+              <p>Все движения по балансу</p>
+            </div>
+            <select class="period-select" aria-label="Период операций">
+              <option>Июль 2026</option>
+              <option>Июнь 2026</option>
+              <option>Май 2026</option>
+            </select>
+          </div>
+
+          <div class="crm-table payments-table">
+            <div class="crm-table-head">
+              <span>Операция</span><span>Заказ</span><span>Способ</span><span>Статус</span><span>Сумма</span>
+            </div>
+            <article class="crm-row">
+              <div data-label="Операция"><strong>Оплата</strong><small>Сегодня, 12:34</small></div>
+              <div data-label="Заказ"><strong>#1048</strong><small>Анна Соколова</small></div>
+              <div data-label="Способ"><strong>СБП</strong><small>Мгновенно</small></div>
+              <div data-label="Статус"><span class="status status-done">Зачислен</span></div>
+              <div data-label="Сумма"><strong class="amount-positive">+9 252,75 ₽</strong><small>Комиссия 237,25 ₽</small></div>
+            </article>
+            <article class="crm-row">
+              <div data-label="Операция"><strong>Оплата</strong><small>Сегодня, 10:18</small></div>
+              <div data-label="Заказ"><strong>#1047</strong><small>Максим Орлов</small></div>
+              <div data-label="Способ"><strong>Карта</strong><small>•• 4582</small></div>
+              <div data-label="Статус"><span class="status status-work">В обработке</span></div>
+              <div data-label="Сумма"><strong>+7 790,25 ₽</strong><small>Комиссия 199,75 ₽</small></div>
+            </article>
+            <article class="crm-row">
+              <div data-label="Операция"><strong>Выплата</strong><small>18 июля, 09:00</small></div>
+              <div data-label="Заказ"><strong>На счёт</strong><small>•• 0214</small></div>
+              <div data-label="Способ"><strong>Альфа-Банк</strong><small>Расчётный счёт</small></div>
+              <div data-label="Статус"><span class="status status-done">Исполнен</span></div>
+              <div data-label="Сумма"><strong>−42 500 ₽</strong><small>Без комиссии</small></div>
+            </article>
+            <article class="crm-row">
+              <div data-label="Операция"><strong>Возврат</strong><small>16 июля, 15:21</small></div>
+              <div data-label="Заказ"><strong>#1039</strong><small>Ольга Миронова</small></div>
+              <div data-label="Способ"><strong>Карта</strong><small>•• 7810</small></div>
+              <div data-label="Статус"><span class="status status-refund">Возврат</span></div>
+              <div data-label="Сумма"><strong class="amount-negative">−8 990 ₽</strong><small>Комиссия возвращена</small></div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollTrigger.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

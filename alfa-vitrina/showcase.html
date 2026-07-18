@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Витрина — Alfa Витрина</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="brand-band">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <header class="showcase-header">
+    <img class="showcase-future-art" src="https://alfabank.servicecdn.ru/site-upload/96/3c/21616/12.png" alt="" aria-hidden="true">
+    <div class="container">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+        <span class="badge badge-white brand-badge"><span><img src="https://alfabank.servicecdn.ru/site-upload/25/fd/7064/Logo_D_white.svg" alt=""></span>Alfa Витрина</span>
+        <span class="badge badge-green">Оплата онлайн</span>
+      </div>
+      <h1 id="showcaseTitle">Кроссовки 36-45</h1>
+      <p id="showcaseDesc">Оригинальные кроссовки и удобная городская обувь. Доставка по всей России.</p>
+      <div class="showcase-index" aria-hidden="true">36—45</div>
+    </div>
+  </header>
+
+  <section class="showcase-products">
+    <div class="container">
+      <h2 class="section-title" style="margin-bottom: 32px;">Товары</h2>
+      <div id="showcaseGrid" class="showcase-grid">
+        <div class="empty-state">
+          <div class="empty-state-icon">🛍️</div>
+          <p>В этой витрине пока нет товаров.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-pink">
+    <div class="container-narrow text-center">
+      <h2 class="section-title">Хочешь такую же витрину?</h2>
+      <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">
+        Создай свою Alfa Витрину бесплатно и начни принимать оплату по ссылке уже сегодня.
+      </p>
+      <a href="dashboard.html" class="btn btn-secondary btn-lg">Создать витрину</a>
+    </div>
+  </section>
+
+  <footer class="showcase-footer">
+    <div class="container">
+      <img class="showcase-footer-logo" src="https://alfabank.servicecdn.ru/site-upload/25/fd/7064/Logo_D_white.svg" alt="Альфа-Банк">
+      <p>Оплата защищена Альфа-Банком. Принимаем карты и СБП.</p>
+      <p style="margin-top: 8px;">Сделано в Alfa Витрина</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollTrigger.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
