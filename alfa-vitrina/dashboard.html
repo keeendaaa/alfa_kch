@@ -14,27 +14,97 @@
     <aside class="sidebar">
       <a href="index.html" class="sidebar-logo"><span><img src="https://alfabank.servicecdn.ru/site-upload/25/fd/7064/Logo_D_white.svg" alt=""></span> Альфа Витрина</a>
       <ul class="sidebar-menu">
-        <li><a href="#products" class="sidebar-link active" data-dashboard-link="products"><span>01</span> Мои товары</a></li>
-        <li><a href="showcase.html" target="_blank" class="sidebar-link"><span>02</span> Витрина</a></li>
+        <li><a href="#setup" class="sidebar-link" data-dashboard-link="setup"><span>01</span> AI-запуск</a></li>
+        <li><a href="#products" class="sidebar-link active" data-dashboard-link="products"><span>02</span> Каталог</a></li>
         <li><a href="#orders" class="sidebar-link" data-dashboard-link="orders"><span>03</span> Заказы</a></li>
-        <li><a href="#payments" class="sidebar-link" data-dashboard-link="payments"><span>04</span> Оплаты</a></li>
-        <li><a href="#products" class="sidebar-link"><span>05</span> Настройки</a></li>
+        <li><a href="#growth" class="sidebar-link" data-dashboard-link="growth"><span>04</span> Рост</a></li>
+        <li><a href="#payments" class="sidebar-link" data-dashboard-link="payments"><span>05</span> Оплаты</a></li>
       </ul>
-      <img class="sidebar-art" src="https://alfabank.servicecdn.ru/site-upload/96/3c/21616/12.png" alt="" aria-hidden="true">
     </aside>
 
     <main class="main">
+      <section class="dashboard-view setup-view" data-dashboard-view="setup" hidden>
+        <div class="setup-heading">
+          <span class="crm-eyebrow">AI / запуск бизнеса</span>
+          <h1>Расскажи, что продаёшь</h1>
+          <p>Не выбирай сервисы заранее. Опиши дело своими словами, а Альфа соберёт черновик витрины и задаст только необходимые вопросы.</p>
+        </div>
+
+        <div class="setup-layout">
+          <div class="panel ai-setup-panel">
+            <div class="ai-message ai-message-system">
+              <span>AI-помощник</span>
+              <p>Что ты продаёшь, как сейчас принимаешь клиентов и что хочешь запустить первым?</p>
+            </div>
+            <label for="businessIdea">Описание бизнеса</label>
+            <textarea id="businessIdea" class="business-idea">Я бьюти-мастер. Делаю макияж и хочу продавать наборы домашнего ухода, а ещё проводить небольшие мастер-классы. Клиенты пишут в Telegram, иногда отменяют запись в последний момент.</textarea>
+            <button id="analyzeBusiness" class="btn btn-primary" type="button">Собрать витрину с AI</button>
+            <p class="demo-note">Демонстрационный сценарий: AI формирует черновик, а публикацию и платежные условия подтверждает предприниматель.</p>
+          </div>
+
+          <div id="aiBusinessDraft" class="panel ai-business-draft" hidden>
+            <div class="draft-head">
+              <div>
+                <span class="badge badge-green">Черновик готов</span>
+                <h2>Студия Леры</h2>
+              </div>
+              <span class="draft-confidence">3 сценария продаж</span>
+            </div>
+            <div class="draft-grid">
+              <article><span>Услуга</span><strong>Макияж</strong><small>Студия · запись · 90 минут</small></article>
+              <article><span>Товар</span><strong>Набор ухода</strong><small>Доставка или самовывоз</small></article>
+              <article><span>Событие</span><strong>Мастер-класс</strong><small>8 мест · полная оплата</small></article>
+            </div>
+            <div class="ai-question">
+              <strong>Предлагаю начать так</strong>
+              <p>Карты и СБП, запись по слотам, полная оплата мастер-класса. Предоплату за услуги пока не включаю: сначала проверим долю отмен.</p>
+            </div>
+            <div class="geo-question">
+              <div class="geo-question-head">
+                <span class="badge badge-pink">Нужна география</span>
+                <div>
+                  <strong>Где ты работаешь с клиентами?</strong>
+                  <p>AI заметил запись в студию и самовывоз. География повлияет на доступные слоты, доставку и то, кому показывать витрину.</p>
+                </div>
+              </div>
+              <div class="geo-fields">
+                <div class="form-group">
+                  <label for="serviceMode">Формат работы</label>
+                  <select id="serviceMode">
+                    <option value="В студии">В студии</option>
+                    <option value="С выездом">Выезжаю к клиенту</option>
+                    <option value="В студии и с выездом">В студии и с выездом</option>
+                    <option value="Только онлайн">Только онлайн</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="businessCity">Город</label>
+                  <input id="businessCity" value="Екатеринбург" autocomplete="address-level2">
+                </div>
+                <div class="form-group full">
+                  <label for="serviceArea">Районы или зона выезда</label>
+                  <input id="serviceArea" value="Центр, Втузгородок" placeholder="Например, центр и до 10 км">
+                </div>
+              </div>
+              <p class="geo-privacy">Точный адрес не публикуем: клиент увидит его только после подтверждённой записи.</p>
+            </div>
+            <label class="confirm-row"><input id="confirmDraft" type="checkbox"> Я проверила карточки, цены, географию и условия</label>
+            <button id="publishAiDraft" class="btn btn-green" type="button" disabled>Подтвердить и опубликовать</button>
+          </div>
+        </div>
+      </section>
+
       <div class="dashboard-view dashboard-content" data-dashboard-view="products">
         <div class="panel">
           <h1 class="panel-title">Настройки витрины</h1>
           <div class="form-grid">
             <div class="form-group full">
               <label for="shopName">Название магазина</label>
-              <input type="text" id="shopName" placeholder="Например, Кроссовки от Кирилла" value="Кроссовки 36-45">
+              <input type="text" id="shopName" placeholder="Например, Студия Леры" value="Студия Леры">
             </div>
             <div class="form-group full">
               <label for="shopDesc">Описание витрины</label>
-              <textarea id="shopDesc" placeholder="Расскажи, что ты продаёшь">Оригинальные кроссовки и удобная городская обувь. Доставка по всей России.</textarea>
+              <textarea id="shopDesc" placeholder="Расскажи, что ты продаёшь">Макияж, домашний уход и камерные мастер-классы в Екатеринбурге.</textarea>
             </div>
           </div>
         </div>
@@ -44,7 +114,7 @@
           <form id="productForm" class="form-grid">
             <div class="form-group">
               <label for="productName">Название</label>
-              <input type="text" id="productName" placeholder="Например, Nike Air Force" required>
+              <input type="text" id="productName" placeholder="Например, Вечерний макияж" required>
             </div>
             <div class="form-group">
               <label for="productPrice">Цена, ₽</label>
@@ -52,14 +122,16 @@
             </div>
             <div class="form-group">
               <label for="productImage">Фото (эмодзи или URL)</label>
-              <input type="text" id="productImage" placeholder="👟 или https://..." value="👟">
+              <input type="text" id="productImage" placeholder="✨ или https://..." value="✨">
             </div>
             <div class="form-group">
               <label for="productCategory">Категория</label>
               <select id="productCategory">
-                <option>Кроссовки</option>
-                <option>Одежда</option>
-                <option>Аксессуары</option>
+                <option>Услуга</option>
+                <option>Уход</option>
+                <option>Мастер-класс</option>
+                <option>Абонемент</option>
+                <option>Предзаказ</option>
                 <option>Другое</option>
               </select>
             </div>
@@ -90,7 +162,7 @@
           <h2 class="panel-title">Ссылка на витрину</h2>
           <p style="color: var(--text-secondary); margin-bottom: 16px;">Отправь эту ссылку клиентам или размести в соцсетях.</p>
           <div class="share-box">
-            <input type="text" id="showcaseLink" readonly value="https://alfa-vitrina.ru/s/krossovki36-45">
+            <input type="text" id="showcaseLink" readonly value="https://alfa-vitrina.ru/s/studiya-lery">
             <button id="copyLink" class="btn btn-secondary">Копировать</button>
             <a href="showcase.html" target="_blank" class="btn btn-outline">Открыть</a>
           </div>
@@ -110,12 +182,12 @@
         <div class="crm-metrics">
           <article class="crm-metric crm-metric-accent">
             <span>Выручка за июль</span>
-            <strong>84 360 ₽</strong>
+            <strong id="ordersRevenue">84 360 ₽</strong>
             <small>На 18% больше июня</small>
           </article>
           <article class="crm-metric">
             <span>Новые</span>
-            <strong>8</strong>
+            <strong id="newOrdersCount">8</strong>
             <small>Нужна обработка</small>
           </article>
           <article class="crm-metric">
@@ -125,8 +197,93 @@
           </article>
           <article class="crm-metric">
             <span>Средний чек</span>
-            <strong>8 436 ₽</strong>
-            <small>10 оплаченных заказов</small>
+            <strong id="averageOrderValue">8 436 ₽</strong>
+            <small id="paidOrdersCount">10 оплаченных заказов</small>
+          </article>
+        </div>
+
+        <div class="analytics-grid analytics-grid-orders">
+          <article class="panel analytics-card analytics-card-wide">
+            <div class="analytics-card-head">
+              <div>
+                <span class="crm-eyebrow">Динамика / 7 дней</span>
+                <h2 class="panel-title">Оплаченная выручка</h2>
+              </div>
+              <div class="chart-periods" aria-label="Период графика заказов">
+                <button class="active" type="button" data-chart-period="7">7 дней</button>
+                <button type="button" data-chart-period="30">30 дней</button>
+              </div>
+            </div>
+            <div class="chart-summary">
+              <strong id="ordersChartTotal">84 360 ₽</strong>
+              <span id="ordersChartDelta">+18% к прошлой неделе</span>
+            </div>
+            <div class="line-chart" data-chart="orders">
+              <svg viewBox="0 0 760 260" role="img" aria-label="График оплаченной выручки по дням">
+                <defs>
+                  <linearGradient id="ordersArea" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ef3124" stop-opacity=".26"/>
+                    <stop offset="1" stop-color="#ef3124" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <g class="chart-grid-lines">
+                  <line x1="45" y1="30" x2="735" y2="30"/><line x1="45" y1="90" x2="735" y2="90"/><line x1="45" y1="150" x2="735" y2="150"/><line x1="45" y1="210" x2="735" y2="210"/>
+                </g>
+                <path class="chart-area" fill="url(#ordersArea)" d="M45 210 C100 190 125 175 160 180 S235 205 275 145 S350 55 390 82 S445 175 505 160 S585 120 620 135 S690 80 735 48 L735 220 L45 220 Z"/>
+                <path class="chart-line chart-line-red" d="M45 210 C100 190 125 175 160 180 S235 205 275 145 S350 55 390 82 S445 175 505 160 S585 120 620 135 S690 80 735 48"/>
+                <g class="chart-points">
+                  <circle cx="45" cy="210" r="5"/><circle cx="160" cy="180" r="5"/><circle cx="275" cy="145" r="5"/><circle cx="390" cy="82" r="5"/><circle cx="505" cy="160" r="5"/><circle cx="620" cy="135" r="5"/><circle cx="735" cy="48" r="5"/>
+                </g>
+              </svg>
+              <div class="chart-axis-labels"><span>13 июл</span><span>14 июл</span><span>15 июл</span><span>16 июл</span><span>17 июл</span><span>18 июл</span><span>19 июл</span></div>
+            </div>
+          </article>
+
+          <article class="panel analytics-card order-status-card">
+            <div class="analytics-card-head">
+              <div><span class="crm-eyebrow">Поток заказов</span><h2 class="panel-title">По статусам</h2></div>
+              <span class="analytics-total">24</span>
+            </div>
+            <div class="donut-wrap">
+              <div class="donut donut-orders" role="img" aria-label="8 новых, 5 в работе, 11 завершённых"><span><strong>46%</strong><small>завершены</small></span></div>
+              <div class="donut-legend">
+                <div><i class="legend-red"></i><span>Новые</span><strong>8</strong></div>
+                <div><i class="legend-blue"></i><span>В работе</span><strong>5</strong></div>
+                <div><i class="legend-green"></i><span>Завершены</span><strong>11</strong></div>
+              </div>
+            </div>
+            <p class="analytics-footnote">Среднее время до завершения — 1 день 8 часов.</p>
+          </article>
+        </div>
+
+        <div class="analytics-grid analytics-grid-insights">
+          <article class="ai-copilot-card analytics-card" data-copilot="orders">
+            <div class="copilot-head">
+              <span class="copilot-mark">AI</span>
+              <div><span class="crm-eyebrow">AI Copilot / заказы</span><h2>Что сделать следующим</h2></div>
+            </div>
+            <div class="copilot-response" id="ordersCopilotResponse" aria-live="polite">
+              <strong>Повторные продажи можно поднять без скидки</strong>
+              <p>7 из 10 клиентов возвращаются за макияжем через 24–32 дня. Добавь напоминание о повторной записи через 26 дней и предложи набор ухода после услуги.</p>
+              <small>Основано на истории заказов и обезличенной когорте 128 похожих мастеров.</small>
+            </div>
+            <button id="ordersCopilotAction" class="btn btn-green copilot-primary-action" type="button" hidden>Создать комплект</button>
+            <div class="copilot-actions">
+              <button type="button" data-copilot-prompt="repeat">Повторные продажи</button>
+              <button type="button" data-copilot-prompt="bundle">Что продавать вместе</button>
+              <button type="button" data-copilot-prompt="cancel">Причины отмен</button>
+            </div>
+          </article>
+
+          <article class="panel analytics-card mix-card">
+            <span class="crm-eyebrow">Состав выручки</span>
+            <h2 class="panel-title">Что покупают</h2>
+            <div class="horizontal-bars">
+              <div><span>Макияж</span><strong>51%</strong><i><b style="--bar: 51%"></b></i></div>
+              <div><span>Мастер-классы</span><strong>32%</strong><i><b style="--bar: 32%"></b></i></div>
+              <div><span>Наборы ухода</span><strong>17%</strong><i><b style="--bar: 17%"></b></i></div>
+            </div>
+            <div class="mix-signal"><span>Сигнал</span><p>Набор ухода добавляют только в 12% заказов на макияж. У похожей когорты — 26%.</p></div>
           </article>
         </div>
 
@@ -144,42 +301,126 @@
             </div>
           </div>
 
-          <div class="crm-table crm-orders-table">
+          <div id="ordersTable" class="crm-table crm-orders-table">
             <div class="crm-table-head">
               <span>Заказ</span><span>Клиент</span><span>Состав</span><span>Статус</span><span>Сумма</span><span></span>
             </div>
             <article class="crm-row" data-order-status="new">
               <div data-label="Заказ"><strong>#1048</strong><small>Сегодня, 12:34</small></div>
               <div data-label="Клиент"><strong>Анна Соколова</strong><small>Telegram</small></div>
-              <div data-label="Состав"><strong>New Balance 530</strong><small>1 товар</small></div>
+              <div data-label="Состав"><strong>Макияж для события</strong><small>22 июля, 12:00</small></div>
               <div data-label="Статус"><span class="status status-new">Новый</span></div>
-              <div data-label="Сумма"><strong>9 490 ₽</strong><small class="paid">Оплачен</small></div>
+              <div data-label="Сумма"><strong>3 500 ₽</strong><small class="paid">Оплачен</small></div>
               <button type="button" class="row-action">Открыть</button>
             </article>
             <article class="crm-row" data-order-status="work">
               <div data-label="Заказ"><strong>#1047</strong><small>Сегодня, 10:18</small></div>
               <div data-label="Клиент"><strong>Максим Орлов</strong><small>Телефон</small></div>
-              <div data-label="Состав"><strong>Adidas Samba</strong><small>1 товар</small></div>
+              <div data-label="Состав"><strong>Набор домашнего ухода</strong><small>Доставка</small></div>
               <div data-label="Статус"><span class="status status-work">Доставка</span></div>
-              <div data-label="Сумма"><strong>7 990 ₽</strong><small class="paid">Оплачен</small></div>
+              <div data-label="Сумма"><strong>1 900 ₽</strong><small class="paid">Оплачен</small></div>
               <button type="button" class="row-action">Открыть</button>
             </article>
             <article class="crm-row" data-order-status="work">
               <div data-label="Заказ"><strong>#1046</strong><small>Вчера, 19:42</small></div>
               <div data-label="Клиент"><strong>Елена Ким</strong><small>VK</small></div>
-              <div data-label="Состав"><strong>Nike Air Force 1</strong><small>2 товара</small></div>
+              <div data-label="Состав"><strong>Мастер-класс по макияжу</strong><small>2 места</small></div>
               <div data-label="Статус"><span class="status status-work">Сборка</span></div>
-              <div data-label="Сумма"><strong>17 980 ₽</strong><small class="paid">Оплачен</small></div>
+              <div data-label="Сумма"><strong>9 800 ₽</strong><small class="paid">Оплачен</small></div>
               <button type="button" class="row-action">Открыть</button>
             </article>
             <article class="crm-row" data-order-status="done">
               <div data-label="Заказ"><strong>#1045</strong><small>18 июля, 16:05</small></div>
               <div data-label="Клиент"><strong>Илья Волков</strong><small>Telegram</small></div>
-              <div data-label="Состав"><strong>New Balance 530</strong><small>1 товар</small></div>
+              <div data-label="Состав"><strong>Макияж для события</strong><small>Получен</small></div>
               <div data-label="Статус"><span class="status status-done">Получен</span></div>
-              <div data-label="Сумма"><strong>9 490 ₽</strong><small class="paid">Оплачен</small></div>
+              <div data-label="Сумма"><strong>3 500 ₽</strong><small class="paid">Оплачен</small></div>
               <button type="button" class="row-action">Открыть</button>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-view growth-view" data-dashboard-view="growth" hidden>
+        <div class="crm-heading">
+          <div>
+            <span class="crm-eyebrow">Рост / рекомендации</span>
+            <h1>Где теряется выручка</h1>
+            <p>Демо-данные показывают полный цикл: сигнал, изменение механики и измерение результата.</p>
+          </div>
+          <span class="badge badge-white">Когорта: 128 похожих мастеров</span>
+        </div>
+
+        <div class="funnel-grid">
+          <article><span>Просмотры</span><strong id="funnelViews">426</strong><small>100% воронки</small></article>
+          <article><span>Начали запись</span><strong id="funnelStarts">96</strong><small>22,5% просмотров</small></article>
+          <article><span>Записались</span><strong id="funnelBookings">61</strong><small>63,5% оформлений</small></article>
+          <article class="funnel-loss"><span>Состоялись</span><strong id="funnelCompleted">42</strong><small>19 отмен и неявок</small></article>
+        </div>
+
+        <div class="growth-grid">
+          <article class="recommendation-card">
+            <div class="recommendation-topline">
+              <span class="badge badge-pink">Найдена потеря</span>
+              <span class="recommendation-impact">≈ 22 800 ₽ / месяц</span>
+            </div>
+            <h2>31% записей отменяются</h2>
+            <p>У обезличенной группы похожих бьюти-мастеров с предоплатой доля отмен ниже. Попробуй брать 20% при записи.</p>
+            <div class="cohort-compare">
+              <div><span>У тебя</span><strong>31%</strong><small>отмен и неявок</small></div>
+              <div><span>Похожая когорта</span><strong>18%</strong><small>при предоплате</small></div>
+            </div>
+            <button id="enablePrepayment" class="btn btn-primary" type="button">Включить предоплату 20%</button>
+            <p class="demo-note">Условие будет добавлено на витрину только после подтверждения. Отключить механику можно в любой момент.</p>
+          </article>
+
+          <article id="experimentCard" class="experiment-card">
+            <span class="crm-eyebrow">Эксперимент / 14 дней</span>
+            <h2 id="experimentTitle">Ждёт запуска</h2>
+            <p id="experimentDescription">После включения предоплаты здесь появится сравнение с предыдущим периодом.</p>
+            <div class="experiment-result" hidden>
+              <div><span>До</span><strong>31%</strong><small>отмен</small></div>
+              <div class="experiment-arrow">→</div>
+              <div><span>После</span><strong>18%</strong><small>отмен</small></div>
+            </div>
+            <div class="experiment-uplift" hidden>
+              <strong>+12 400 ₽</strong>
+              <span>оплаченной выручки после комиссий</span>
+            </div>
+            <button id="disablePrepayment" class="btn btn-outline" type="button" hidden>Отключить механику</button>
+            <p class="experiment-disclaimer" hidden>Результат симулирован для демонстрации интерфейса. В продукте вывод строится по контрольной группе или корректному сравнению периодов.</p>
+          </article>
+        </div>
+
+        <div class="panel next-product-card">
+          <div>
+            <span class="crm-eyebrow">Следующий инструмент</span>
+            <h2 class="panel-title">Подели пока не нужен</h2>
+            <p>Средний чек услуг ниже порога, при котором BNPL способен увеличить число оплаченных заказов. Альфа покажет предложение только после появления сигнала.</p>
+          </div>
+          <span class="next-product-status">Не подключаем без пользы</span>
+        </div>
+
+        <div class="panel growth-path-card">
+          <div class="growth-path-head">
+            <div>
+              <span class="crm-eyebrow">Платёжный контур роста</span>
+              <h2 class="panel-title">Инструменты появляются по сигналу</h2>
+              <p>Не каталог сервисов, а следующий полезный шаг для текущей стадии бизнеса.</p>
+            </div>
+            <span class="badge badge-green">История сохраняется</span>
+          </div>
+          <div class="growth-path" role="tablist" aria-label="Этапы роста бизнеса">
+            <button class="active" type="button" data-growth-stage="start"><span>01</span><strong>Старт</strong><small>СБП · карты · AlfaPay</small></button>
+            <button type="button" data-growth-stage="regular"><span>02</span><strong>Повторы</strong><small>Абонементы · рекурренты</small></button>
+            <button type="button" data-growth-stage="offline"><span>03</span><strong>Студия</strong><small>AlfaPOS · касса</small></button>
+            <button type="button" data-growth-stage="team"><span>04</span><strong>Команда</strong><small>Выплаты · чаевые</small></button>
+            <button type="button" data-growth-stage="business"><span>05</span><strong>ИП и РКО</strong><small>Налоговый контур</small></button>
+            <button type="button" data-growth-stage="checkout"><span>06</span><strong>Свой сайт</strong><small>Checkout · Analytics SDK</small></button>
+          </div>
+          <div id="growthStageDetail" class="growth-stage-detail" aria-live="polite">
+            <div><span>Текущий сигнал</span><strong>Первая витрина опубликована</strong></div>
+            <p>Подключены только необходимые способы оплаты. Следующий продукт появится после подтверждённого сигнала роста.</p>
           </div>
         </div>
       </section>
@@ -205,9 +446,81 @@
         </div>
 
         <div class="payment-metrics">
-          <article><span>Поступило за месяц</span><strong>84 360 ₽</strong><small>12 платежей</small></article>
+          <article><span>Поступило за месяц</span><strong id="paymentsReceived">84 360 ₽</strong><small id="paymentsCount">12 платежей</small></article>
           <article><span>Ожидает зачисления</span><strong>7 939,20 ₽</strong><small>1 платёж</small></article>
           <article><span>Комиссия</span><strong>2 169,20 ₽</strong><small>2,5% от оборота</small></article>
+        </div>
+
+        <div class="analytics-grid payments-analytics-grid">
+          <article class="panel analytics-card analytics-card-wide payment-overview-card">
+            <div class="analytics-card-head">
+              <div><span class="crm-eyebrow">Финансовая аналитика</span><h2 class="panel-title">Обзор ключевых показателей</h2></div>
+              <span class="badge badge-white">Последние 7 дней</span>
+            </div>
+            <div class="metric-tabs" role="tablist" aria-label="Метрика финансового графика">
+              <button class="active" type="button" data-payment-metric="revenue"><span>Выручка</span><strong>24 755 ₽</strong></button>
+              <button type="button" data-payment-metric="refunds"><span>Возвраты</span><strong>3 500 ₽</strong></button>
+              <button type="button" data-payment-metric="fees"><span>Комиссии</span><strong>618 ₽</strong></button>
+              <button type="button" data-payment-metric="average"><span>Средний чек</span><strong>3 094 ₽</strong></button>
+            </div>
+            <div class="line-chart payment-line-chart" data-chart="payments">
+              <svg viewBox="0 0 760 260" role="img" aria-label="График выбранного финансового показателя">
+                <defs>
+                  <linearGradient id="paymentsArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#32a77d" stop-opacity=".3"/><stop offset="1" stop-color="#32a77d" stop-opacity="0"/></linearGradient>
+                </defs>
+                <g class="chart-grid-lines"><line x1="45" y1="30" x2="735" y2="30"/><line x1="45" y1="90" x2="735" y2="90"/><line x1="45" y1="150" x2="735" y2="150"/><line x1="45" y1="210" x2="735" y2="210"/></g>
+                <path id="paymentChartArea" class="chart-area" fill="url(#paymentsArea)" d="M45 180 C64.2 183.3 121.7 195.8 160 200 C198.3 204.2 236.7 225.0 275 205 C313.3 185.0 351.7 82.5 390 80 C428.3 77.5 466.7 170.8 505 190 C543.3 209.2 581.7 213.0 620 195 C658.3 177.0 715.8 100.8 735 82 L735 220 L45 220 Z"/>
+                <path id="paymentChartLine" class="chart-line chart-line-green" d="M45 180 C64.2 183.3 121.7 195.8 160 200 C198.3 204.2 236.7 225.0 275 205 C313.3 185.0 351.7 82.5 390 80 C428.3 77.5 466.7 170.8 505 190 C543.3 209.2 581.7 213.0 620 195 C658.3 177.0 715.8 100.8 735 82"/>
+                <g id="paymentChartPoints" class="chart-points chart-points-green"><circle cx="45" cy="180" r="5"/><circle cx="160" cy="200" r="5"/><circle cx="275" cy="205" r="5"/><circle cx="390" cy="80" r="5"/><circle cx="505" cy="190" r="5"/><circle cx="620" cy="195" r="5"/><circle cx="735" cy="82" r="5"/></g>
+              </svg>
+              <div class="chart-axis-labels"><span>13 июл</span><span>14 июл</span><span>15 июл</span><span>16 июл</span><span>17 июл</span><span>18 июл</span><span>19 июл</span></div>
+            </div>
+          </article>
+
+          <article class="panel analytics-card payment-method-card">
+            <span class="crm-eyebrow">Методы оплаты</span>
+            <h2 class="panel-title">Как платят</h2>
+            <div class="donut-wrap donut-wrap-vertical">
+              <div class="donut donut-payments" role="img" aria-label="58% СБП, 34% карты, 8% AlfaPay"><span><strong>58%</strong><small>СБП</small></span></div>
+              <div class="donut-legend">
+                <div><i class="legend-green"></i><span>СБП</span><strong>58%</strong></div>
+                <div><i class="legend-blue"></i><span>Карты</span><strong>34%</strong></div>
+                <div><i class="legend-pink"></i><span>AlfaPay</span><strong>8%</strong></div>
+              </div>
+            </div>
+            <div class="method-saving"><span>Экономия на комиссии</span><strong>1 240 ₽</strong><small>за счёт доли СБП</small></div>
+          </article>
+        </div>
+
+        <div class="analytics-grid analytics-grid-insights">
+          <article class="ai-copilot-card analytics-card" data-copilot="payments">
+            <div class="copilot-head">
+              <span class="copilot-mark">AI</span>
+              <div><span class="crm-eyebrow">AI Copilot / оплаты</span><h2>Платёжный разбор</h2></div>
+            </div>
+            <div class="copilot-response" id="paymentsCopilotResponse" aria-live="polite">
+              <strong>СБП уже экономит комиссию, но есть ещё потенциал</strong>
+              <p>Покажи СБП первым способом на мобильных устройствах. По похожей когорте это может перевести ещё 9–13% оплат с карт без снижения конверсии.</p>
+              <small>Copilot оптимизирует оплаченную выручку после возвратов и комиссий, а не прибыль.</small>
+            </div>
+            <div class="copilot-actions">
+              <button type="button" data-copilot-prompt="fees">Снизить комиссию</button>
+              <button type="button" data-copilot-prompt="refunds">Разобрать возвраты</button>
+              <button type="button" data-copilot-prompt="payout">Когда выплата</button>
+            </div>
+          </article>
+
+          <article class="panel analytics-card finance-breakdown-card">
+            <span class="crm-eyebrow">После оплаты</span>
+            <h2 class="panel-title">Чистая выручка</h2>
+            <div class="finance-waterfall">
+              <div><span>Оплачено</span><strong>24 755 ₽</strong></div>
+              <div class="negative"><span>Возвраты</span><strong>−3 500 ₽</strong></div>
+              <div class="negative"><span>Комиссии</span><strong>−618 ₽</strong></div>
+              <div class="total"><span>После платежей</span><strong>20 637 ₽</strong></div>
+            </div>
+            <p class="analytics-footnote">Себестоимость не подключена, поэтому прибыль не рассчитывается.</p>
+          </article>
         </div>
 
         <div class="panel crm-panel">
@@ -223,7 +536,7 @@
             </select>
           </div>
 
-          <div class="crm-table payments-table">
+          <div id="paymentsTable" class="crm-table payments-table">
             <div class="crm-table-head">
               <span>Операция</span><span>Заказ</span><span>Способ</span><span>Статус</span><span>Сумма</span>
             </div>
@@ -232,14 +545,14 @@
               <div data-label="Заказ"><strong>#1048</strong><small>Анна Соколова</small></div>
               <div data-label="Способ"><strong>СБП</strong><small>Мгновенно</small></div>
               <div data-label="Статус"><span class="status status-done">Зачислен</span></div>
-              <div data-label="Сумма"><strong class="amount-positive">+9 252,75 ₽</strong><small>Комиссия 237,25 ₽</small></div>
+              <div data-label="Сумма"><strong class="amount-positive">+3 412,50 ₽</strong><small>Комиссия 87,50 ₽</small></div>
             </article>
             <article class="crm-row">
               <div data-label="Операция"><strong>Оплата</strong><small>Сегодня, 10:18</small></div>
               <div data-label="Заказ"><strong>#1047</strong><small>Максим Орлов</small></div>
               <div data-label="Способ"><strong>Карта</strong><small>•• 4582</small></div>
               <div data-label="Статус"><span class="status status-work">В обработке</span></div>
-              <div data-label="Сумма"><strong>+7 790,25 ₽</strong><small>Комиссия 199,75 ₽</small></div>
+              <div data-label="Сумма"><strong>+1 852,50 ₽</strong><small>Комиссия 47,50 ₽</small></div>
             </article>
             <article class="crm-row">
               <div data-label="Операция"><strong>Выплата</strong><small>18 июля, 09:00</small></div>
@@ -253,7 +566,7 @@
               <div data-label="Заказ"><strong>#1039</strong><small>Ольга Миронова</small></div>
               <div data-label="Способ"><strong>Карта</strong><small>•• 7810</small></div>
               <div data-label="Статус"><span class="status status-refund">Возврат</span></div>
-              <div data-label="Сумма"><strong class="amount-negative">−8 990 ₽</strong><small>Комиссия возвращена</small></div>
+              <div data-label="Сумма"><strong class="amount-negative">−3 500 ₽</strong><small>Комиссия возвращена</small></div>
             </article>
           </div>
         </div>

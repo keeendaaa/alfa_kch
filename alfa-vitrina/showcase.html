@@ -22,10 +22,11 @@
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
         <span class="badge badge-white brand-badge"><span><img src="https://alfabank.servicecdn.ru/site-upload/25/fd/7064/Logo_D_white.svg" alt=""></span>Alfa Витрина</span>
         <span class="badge badge-green">Оплата онлайн</span>
+        <span id="showcaseLocation" class="badge showcase-location">Екатеринбург · Центр</span>
       </div>
-      <h1 id="showcaseTitle">Кроссовки 36-45</h1>
-      <p id="showcaseDesc">Оригинальные кроссовки и удобная городская обувь. Доставка по всей России.</p>
-      <div class="showcase-index" aria-hidden="true">36—45</div>
+      <h1 id="showcaseTitle">Студия Леры</h1>
+      <p id="showcaseDesc">Макияж, домашний уход и камерные мастер-классы в Екатеринбурге.</p>
+      <div class="showcase-index" aria-hidden="true">LERA</div>
     </div>
   </header>
 
@@ -53,12 +54,90 @@
         <div id="dialogProductPrice" class="product-dialog-price"></div>
         <p id="dialogProductDesc" class="product-dialog-desc"></p>
         <div class="product-dialog-meta">
-          <div><span>Размеры</span><strong>36–45</strong></div>
-          <div><span>Доставка</span><strong>По России</strong></div>
-          <div><span>Оплата</span><strong>Карта или СБП</strong></div>
+          <div><span id="dialogMetaOneLabel">Формат</span><strong id="dialogMetaOneValue">По записи</strong></div>
+          <div><span id="dialogMetaTwoLabel">Получение</span><strong id="dialogMetaTwoValue">В студии</strong></div>
+          <div><span>Оплата</span><strong id="dialogPaymentValue">Карта или СБП</strong></div>
         </div>
-        <button id="dialogBuyButton" class="btn btn-primary product-dialog-buy" type="button">Купить</button>
+        <button id="dialogBuyButton" class="btn btn-primary product-dialog-buy" type="button">Выбрать и оплатить</button>
       </div>
+    </div>
+  </dialog>
+
+  <dialog id="checkoutDialog" class="checkout-dialog" aria-labelledby="checkoutTitle">
+    <div class="checkout-shell">
+      <div class="checkout-head">
+        <div>
+          <span class="badge badge-green">Безопасная демо-оплата</span>
+          <h2 id="checkoutTitle">Оформление</h2>
+        </div>
+        <button id="closeCheckoutDialog" class="dialog-close" type="button">Закрыть</button>
+      </div>
+
+      <form id="checkoutForm" class="checkout-form">
+        <div id="checkoutFields" class="checkout-fields">
+          <div class="checkout-product">
+            <span id="checkoutProductCategory">Услуга</span>
+            <strong id="checkoutProductName">Макияж</strong>
+            <small id="checkoutProductPrice">3 500 ₽</small>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="customerName">Имя</label>
+              <input id="customerName" name="customerName" value="Анна" required>
+            </div>
+            <div class="form-group">
+              <label for="customerPhone">Телефон</label>
+              <input id="customerPhone" name="customerPhone" type="tel" value="+7 999 123-45-67" required>
+            </div>
+            <div id="bookingSlotGroup" class="form-group full">
+              <label for="bookingSlot">Время записи</label>
+              <select id="bookingSlot" name="bookingSlot">
+                <option>22 июля, 12:00</option>
+                <option>22 июля, 16:30</option>
+                <option>23 июля, 11:00</option>
+              </select>
+            </div>
+            <div id="fulfillmentGroup" class="form-group full" hidden>
+              <label for="fulfillmentMethod">Получение заказа</label>
+              <select id="fulfillmentMethod" name="fulfillmentMethod">
+                <option value="Доставка">Доставка</option>
+                <option value="Самовывоз">Самовывоз из студии</option>
+              </select>
+            </div>
+            <div id="deliveryAddressGroup" class="form-group full" hidden>
+              <label for="deliveryAddress">Адрес доставки</label>
+              <input id="deliveryAddress" name="deliveryAddress" value="Екатеринбург, ул. Малышева, 51" autocomplete="street-address">
+            </div>
+          </div>
+          <fieldset class="payment-methods">
+            <legend>Способ оплаты</legend>
+            <label><input type="radio" name="paymentMethod" value="СБП" checked><span><strong>СБП</strong><small>Мгновенно</small></span></label>
+            <label><input type="radio" name="paymentMethod" value="Карта"><span><strong>Карта</strong><small>МИР, Visa, Mastercard</small></span></label>
+          </fieldset>
+          <div id="prepaymentNotice" class="prepayment-notice" hidden>
+            <span>Предоплата включена</span>
+            <p>Сейчас спишется 20%. Остаток — после оказания услуги.</p>
+          </div>
+          <div class="checkout-total">
+            <span id="checkoutTotalLabel">К оплате</span>
+            <strong id="checkoutTotal">3 500 ₽</strong>
+          </div>
+          <button class="btn btn-primary" type="submit">Оплатить</button>
+          <p class="demo-note">Это интерактивная симуляция: банковские реквизиты не запрашиваются, реального списания нет.</p>
+        </div>
+        <div id="checkoutSuccess" class="checkout-success" role="status" aria-live="polite" tabindex="-1" hidden>
+          <span class="checkout-success-mark">✓</span>
+          <span class="crm-eyebrow">Оплата прошла</span>
+          <h2>Заказ создан</h2>
+          <p id="checkoutSuccessText">Запись подтверждена. Чек отправлен на телефон.</p>
+          <div class="receipt-card">
+            <span>Демонстрационный чек</span>
+            <strong id="receiptNumber">№ 1050</strong>
+            <small id="receiptAmount">3 500 ₽ · СБП</small>
+          </div>
+          <a href="dashboard.html#orders" class="btn btn-secondary">Посмотреть заказ в кабинете</a>
+        </div>
+      </form>
     </div>
   </dialog>
 
@@ -75,7 +154,7 @@
   <footer class="showcase-footer">
     <div class="container">
       <img class="showcase-footer-logo" src="https://alfabank.servicecdn.ru/site-upload/25/fd/7064/Logo_D_white.svg" alt="Альфа-Банк">
-      <p>Оплата защищена Альфа-Банком. Принимаем карты и СБП.</p>
+      <p>Демонстрационный сценарий оплаты картой и СБП.</p>
       <p style="margin-top: 8px;">Сделано в Alfa Витрина</p>
     </div>
   </footer>
