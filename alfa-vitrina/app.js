@@ -948,28 +948,25 @@
           window.gsap.killTweensOf([paymentChartLine, paymentChartArea, ...paymentCircles]);
 
           // Phase 1 — сворачиваем текущий график к левому краю (обратная траектория)
-          tl.to(paymentChartLine, { attr: { d: from.collapsed }, duration: 0.35, ease: "power2.inOut" }, 0);
-          tl.to(paymentChartArea, { attr: { d: buildPaymentArea(from.collapsed) }, duration: 0.35, ease: "power2.inOut" }, 0);
-          paymentCircles.forEach((circle, i) => {
-            tl.to(circle, { attr: { cx: PAYMENT_CHART_XS[0] }, duration: 0.35, ease: "power2.inOut" }, 0 + (paymentCircles.length - 1 - i) * 0.02);
-          });
+          tl.to(paymentChartLine, { attr: { d: from.collapsed }, duration: 0.4, ease: "power2.inOut" }, 0);
+          tl.to(paymentChartArea, { attr: { d: buildPaymentArea(from.collapsed) }, duration: 0.4, ease: "power2.inOut" }, 0);
+          tl.to(paymentCircles, { autoAlpha: 0, scale: 0.6, duration: 0.25, ease: "power2.in", stagger: { amount: 0.1, from: "end" }, transformOrigin: "center" }, 0.08);
 
           // Phase 2 — меняем набор данных, оставаясь в свёрнутом состоянии
           tl.call(() => {
             paymentChartLine.setAttribute("d", to.collapsed);
             paymentChartArea.setAttribute("d", buildPaymentArea(to.collapsed));
             paymentCircles.forEach((circle, i) => {
-              circle.setAttribute("cx", PAYMENT_CHART_XS[0]);
+              circle.setAttribute("cx", PAYMENT_CHART_XS[i]);
               circle.setAttribute("cy", to.values[i]);
+              window.gsap.set(circle, { autoAlpha: 0, scale: 0.6 });
             });
           });
 
-          // Phase 3 — рисуем новый график слева направо
+          // Phase 3 — рисуем новый график слева направо, точки появляются по ходу
           tl.to(paymentChartLine, { attr: { d: to.line }, duration: 0.55, ease: "power2.out" });
           tl.to(paymentChartArea, { attr: { d: to.area }, duration: 0.55, ease: "power2.out" }, "<");
-          paymentCircles.forEach((circle, i) => {
-            tl.to(circle, { attr: { cx: PAYMENT_CHART_XS[i], cy: to.values[i] }, duration: 0.55, ease: "power2.out" }, "<" + i * 0.02);
-          });
+          tl.to(paymentCircles, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)", stagger: { amount: 0.22, from: "start" }, transformOrigin: "center" }, "<+0.18");
         } else {
           paymentChartLine?.setAttribute("d", to.line);
           paymentChartArea?.setAttribute("d", to.area);
