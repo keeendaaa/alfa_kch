@@ -4,3 +4,4 @@ preview*.png
 students_pages/
 *.pdf
 *.txt
+.vercel/
