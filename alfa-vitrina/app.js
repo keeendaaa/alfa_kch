@@ -963,10 +963,12 @@
             });
           });
 
-          // Phase 3 — рисуем новый график слева направо, точки появляются по ходу
+          // Phase 3 — рисуем новый график слева направо
           tl.to(paymentChartLine, { attr: { d: to.line }, duration: 0.55, ease: "power2.out" });
           tl.to(paymentChartArea, { attr: { d: to.area }, duration: 0.55, ease: "power2.out" }, "<");
-          tl.to(paymentCircles, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)", stagger: { amount: 0.22, from: "start" }, transformOrigin: "center" }, "<+0.18");
+
+          // Phase 4 — после отрисовки линии точки появляются на графике
+          tl.to(paymentCircles, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)", stagger: { amount: 0.22, from: "start" }, transformOrigin: "center" });
         } else {
           paymentChartLine?.setAttribute("d", to.line);
           paymentChartArea?.setAttribute("d", to.area);
