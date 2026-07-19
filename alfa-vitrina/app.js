@@ -874,6 +874,14 @@
       });
     }
 
+    function resetCircleStyle(circle) {
+      circle.removeAttribute("transform");
+      circle.style.transform = "";
+      circle.style.transformOrigin = "";
+      circle.style.opacity = "";
+      circle.style.visibility = "";
+    }
+
     function initChart(lineEl, areaEl, pointsEl, metric) {
       if (!lineEl || !areaEl) return;
       lineEl.setAttribute("d", metric.line);
@@ -881,10 +889,11 @@
       const circles = pointsEl ? Array.from(pointsEl.querySelectorAll("circle")) : [];
       circles.forEach((circle, i) => {
         if (metric.values[i] !== undefined) {
+          resetCircleStyle(circle);
           circle.setAttribute("cx", CHART_XS[i]);
           circle.setAttribute("cy", metric.values[i]);
-          circle.style.opacity = "";
-          circle.style.visibility = "";
+          circle.setAttribute("r", 5);
+          circle.setAttribute("opacity", 1);
         }
       });
     }
@@ -894,14 +903,14 @@
       if (window.gsap && !reduceMotion && lineEl && areaEl) {
         const tl = window.gsap.timeline();
         window.gsap.killTweensOf([lineEl, areaEl, ...circles]);
+        circles.forEach(resetCircleStyle);
 
         // Phase 1 — сворачиваем текущий график к левому краю (обратная траектория)
         tl.to(lineEl, { attr: { d: from.collapsed }, duration: 0.4, ease: "power2.inOut" }, 0);
         tl.to(areaEl, { attr: { d: buildChartArea(from.collapsed) }, duration: 0.4, ease: "power2.inOut" }, 0);
         circles.forEach((circle, i) => {
           const staggerOut = (circles.length - 1 - i) * 0.02;
-          tl.to(circle, { attr: { cx: CHART_XS[0] }, duration: 0.4, ease: "power2.inOut" }, 0 + staggerOut);
-          tl.to(circle, { autoAlpha: 0, scale: 0.6, duration: 0.25, ease: "power2.in", transformOrigin: "50% 50%" }, 0.05 + staggerOut);
+          tl.to(circle, { attr: { cx: CHART_XS[0], r: 0, opacity: 0 }, duration: 0.35, ease: "power2.inOut" }, 0 + staggerOut);
         });
 
         // Phase 2 — меняем набор данных, оставаясь в свёрнутом состоянии
@@ -909,9 +918,11 @@
           lineEl.setAttribute("d", to.collapsed);
           areaEl.setAttribute("d", buildChartArea(to.collapsed));
           circles.forEach((circle, i) => {
+            resetCircleStyle(circle);
             circle.setAttribute("cx", CHART_XS[0]);
             circle.setAttribute("cy", to.values[i]);
-            window.gsap.set(circle, { autoAlpha: 0, scale: 0.6 });
+            circle.setAttribute("r", 0);
+            circle.setAttribute("opacity", 0);
           });
         });
 
@@ -920,17 +931,17 @@
         tl.to(areaEl, { attr: { d: to.area }, duration: 0.55, ease: "power2.out" }, "<");
         circles.forEach((circle, i) => {
           const staggerIn = i * 0.02;
-          tl.to(circle, { attr: { cx: CHART_XS[i], cy: to.values[i] }, duration: 0.55, ease: "power2.out" }, "<" + staggerIn);
-          tl.to(circle, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power2.out", transformOrigin: "50% 50%" }, "<" + staggerIn);
+          tl.to(circle, { attr: { cx: CHART_XS[i], cy: to.values[i], r: 5, opacity: 1 }, duration: 0.55, ease: "power2.out" }, "<" + staggerIn);
         });
       } else {
         lineEl?.setAttribute("d", to.line);
         areaEl?.setAttribute("d", to.area);
         circles.forEach((circle, i) => {
+          resetCircleStyle(circle);
           circle.setAttribute("cx", CHART_XS[i]);
           circle.setAttribute("cy", to.values[i]);
-          circle.style.opacity = "";
-          circle.style.visibility = "";
+          circle.setAttribute("r", 5);
+          circle.setAttribute("opacity", 1);
         });
       }
     }
