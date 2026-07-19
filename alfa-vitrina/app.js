@@ -821,54 +821,21 @@
       });
     });
 
-    const orderChartData = {
-      7: {
-        total: "84 360 ₽",
-        delta: "+18% к прошлой неделе",
-        line: "M45 210 C100 190 125 175 160 180 S235 205 275 145 S350 55 390 82 S445 175 505 160 S585 120 620 135 S690 80 735 48",
-        area: "M45 210 C100 190 125 175 160 180 S235 205 275 145 S350 55 390 82 S445 175 505 160 S585 120 620 135 S690 80 735 48 L735 220 L45 220 Z"
-      },
-      30: {
-        total: "312 480 ₽",
-        delta: "+24% к прошлому месяцу",
-        line: "M45 190 C100 155 135 175 180 142 S260 115 310 132 S390 65 445 92 S525 145 570 105 S665 75 735 55",
-        area: "M45 190 C100 155 135 175 180 142 S260 115 310 132 S390 65 445 92 S525 145 570 105 S665 75 735 55 L735 220 L45 220 Z"
-      }
-    };
+    const CHART_XS = [45, 160, 275, 390, 505, 620, 735];
+    const CHART_BASELINE_Y = 220;
 
-    document.querySelectorAll("[data-chart-period]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const data = orderChartData[button.dataset.chartPeriod];
-        button.parentElement.querySelectorAll("button").forEach((item) => item.classList.toggle("active", item === button));
-        document.getElementById("ordersChartTotal").textContent = data.total;
-        document.getElementById("ordersChartDelta").textContent = data.delta;
-        const line = document.querySelector('[data-chart="orders"] .chart-line');
-        const area = document.querySelector('[data-chart="orders"] .chart-area');
-        if (window.gsap && !reduceMotion) {
-          window.gsap.to(line, { attr: { d: data.line }, duration: 0.55, ease: "power2.inOut" });
-          window.gsap.to(area, { attr: { d: data.area }, duration: 0.55, ease: "power2.inOut" });
-        } else {
-          line.setAttribute("d", data.line);
-          area.setAttribute("d", data.area);
-        }
-      });
-    });
-
-    const PAYMENT_CHART_XS = [45, 160, 275, 390, 505, 620, 735];
-    const PAYMENT_BASELINE_Y = 220;
-
-    function buildPaymentLine(values) {
+    function buildChartLine(values) {
       const n = values.length;
       if (n === 0) return "";
-      let d = `M${PAYMENT_CHART_XS[0]} ${values[0]}`;
+      let d = `M${CHART_XS[0]} ${values[0]}`;
       for (let i = 0; i < n - 1; i++) {
-        const x0 = PAYMENT_CHART_XS[Math.max(0, i - 1)];
+        const x0 = CHART_XS[Math.max(0, i - 1)];
         const y0 = values[Math.max(0, i - 1)];
-        const x1 = PAYMENT_CHART_XS[i];
+        const x1 = CHART_XS[i];
         const y1 = values[i];
-        const x2 = PAYMENT_CHART_XS[i + 1];
+        const x2 = CHART_XS[i + 1];
         const y2 = values[i + 1];
-        const x3 = PAYMENT_CHART_XS[Math.min(n - 1, i + 2)];
+        const x3 = CHART_XS[Math.min(n - 1, i + 2)];
         const y3 = values[Math.min(n - 1, i + 2)];
         const cp1x = x1 + (x2 - x0) / 6;
         const cp1y = y1 + (y2 - y0) / 6;
@@ -879,10 +846,10 @@
       return d;
     }
 
-    function buildCollapsedPaymentLine(values) {
+    function buildCollapsedChartLine(values) {
       const n = values.length;
       if (n === 0) return "";
-      let d = `M${PAYMENT_CHART_XS[0]} ${values[0]}`;
+      let d = `M${CHART_XS[0]} ${values[0]}`;
       for (let i = 0; i < n - 1; i++) {
         const y0 = values[Math.max(0, i - 1)];
         const y1 = values[i];
@@ -890,14 +857,109 @@
         const y3 = values[Math.min(n - 1, i + 2)];
         const cp1y = y1 + (y2 - y0) / 6;
         const cp2y = y2 - (y3 - y1) / 6;
-        d += ` C${PAYMENT_CHART_XS[0]} ${cp1y.toFixed(1)} ${PAYMENT_CHART_XS[0]} ${cp2y.toFixed(1)} ${PAYMENT_CHART_XS[0]} ${y2}`;
+        d += ` C${CHART_XS[0]} ${cp1y.toFixed(1)} ${CHART_XS[0]} ${cp2y.toFixed(1)} ${CHART_XS[0]} ${y2}`;
       }
       return d;
     }
 
-    function buildPaymentArea(lineD) {
-      return `${lineD} L735 ${PAYMENT_BASELINE_Y} L45 ${PAYMENT_BASELINE_Y} Z`;
+    function buildChartArea(lineD) {
+      return `${lineD} L735 ${CHART_BASELINE_Y} L45 ${CHART_BASELINE_Y} Z`;
     }
+
+    function prepChartData(dataMap) {
+      Object.values(dataMap).forEach((metric) => {
+        metric.line = buildChartLine(metric.values);
+        metric.area = buildChartArea(metric.line);
+        metric.collapsed = buildCollapsedChartLine(metric.values);
+      });
+    }
+
+    function initChart(lineEl, areaEl, pointsEl, metric) {
+      if (!lineEl || !areaEl) return;
+      lineEl.setAttribute("d", metric.line);
+      areaEl.setAttribute("d", metric.area);
+      const circles = pointsEl ? Array.from(pointsEl.querySelectorAll("circle")) : [];
+      circles.forEach((circle, i) => {
+        if (metric.values[i] !== undefined) {
+          circle.setAttribute("cx", CHART_XS[i]);
+          circle.setAttribute("cy", metric.values[i]);
+          circle.style.opacity = "";
+          circle.style.visibility = "";
+        }
+      });
+    }
+
+    function switchChart(lineEl, areaEl, pointsEl, from, to) {
+      const circles = pointsEl ? Array.from(pointsEl.querySelectorAll("circle")) : [];
+      if (window.gsap && !reduceMotion && lineEl && areaEl) {
+        const tl = window.gsap.timeline();
+        window.gsap.killTweensOf([lineEl, areaEl, ...circles]);
+
+        // Phase 1 — сворачиваем текущий график к левому краю (обратная траектория)
+        tl.to(lineEl, { attr: { d: from.collapsed }, duration: 0.4, ease: "power2.inOut" }, 0);
+        tl.to(areaEl, { attr: { d: buildChartArea(from.collapsed) }, duration: 0.4, ease: "power2.inOut" }, 0);
+        circles.forEach((circle, i) => {
+          const staggerOut = (circles.length - 1 - i) * 0.02;
+          tl.to(circle, { attr: { cx: CHART_XS[0] }, duration: 0.4, ease: "power2.inOut" }, 0 + staggerOut);
+          tl.to(circle, { autoAlpha: 0, scale: 0.6, duration: 0.25, ease: "power2.in", transformOrigin: "50% 50%" }, 0.05 + staggerOut);
+        });
+
+        // Phase 2 — меняем набор данных, оставаясь в свёрнутом состоянии
+        tl.call(() => {
+          lineEl.setAttribute("d", to.collapsed);
+          areaEl.setAttribute("d", buildChartArea(to.collapsed));
+          circles.forEach((circle, i) => {
+            circle.setAttribute("cx", CHART_XS[0]);
+            circle.setAttribute("cy", to.values[i]);
+            window.gsap.set(circle, { autoAlpha: 0, scale: 0.6 });
+          });
+        });
+
+        // Phase 3 — рисуем новый график слева направо, точки движутся вместе с линией
+        tl.to(lineEl, { attr: { d: to.line }, duration: 0.55, ease: "power2.out" });
+        tl.to(areaEl, { attr: { d: to.area }, duration: 0.55, ease: "power2.out" }, "<");
+        circles.forEach((circle, i) => {
+          const staggerIn = i * 0.02;
+          tl.to(circle, { attr: { cx: CHART_XS[i], cy: to.values[i] }, duration: 0.55, ease: "power2.out" }, "<" + staggerIn);
+          tl.to(circle, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power2.out", transformOrigin: "50% 50%" }, "<" + staggerIn);
+        });
+      } else {
+        lineEl?.setAttribute("d", to.line);
+        areaEl?.setAttribute("d", to.area);
+        circles.forEach((circle, i) => {
+          circle.setAttribute("cx", CHART_XS[i]);
+          circle.setAttribute("cy", to.values[i]);
+          circle.style.opacity = "";
+          circle.style.visibility = "";
+        });
+      }
+    }
+
+    const orderChartData = {
+      7: { total: "84 360 ₽", delta: "+18% к прошлой неделе", values: [210, 180, 145, 82, 160, 135, 48] },
+      30: { total: "312 480 ₽", delta: "+24% к прошлому месяцу", values: [190, 165, 145, 120, 100, 78, 55] }
+    };
+    prepChartData(orderChartData);
+
+    const ordersChartLine = document.getElementById("ordersChartLine");
+    const ordersChartArea = document.getElementById("ordersChartArea");
+    const ordersChartPoints = document.getElementById("ordersChartPoints");
+    initChart(ordersChartLine, ordersChartArea, ordersChartPoints, orderChartData["7"]);
+
+    document.querySelectorAll("[data-chart-period]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const period = button.dataset.chartPeriod;
+        const to = orderChartData[period];
+        if (!to) return;
+        const fromButton = button.parentElement.querySelector("button.active");
+        if (fromButton?.dataset.chartPeriod === period) return;
+        const from = orderChartData[fromButton?.dataset.chartPeriod] || orderChartData["7"];
+        button.parentElement.querySelectorAll("button").forEach((item) => item.classList.toggle("active", item === button));
+        document.getElementById("ordersChartTotal").textContent = to.total;
+        document.getElementById("ordersChartDelta").textContent = to.delta;
+        switchChart(ordersChartLine, ordersChartArea, ordersChartPoints, from, to);
+      });
+    });
 
     const paymentChartData = {
       revenue: { values: [180, 200, 205, 80, 190, 195, 82] },
@@ -905,32 +967,12 @@
       fees: { values: [195, 205, 195, 145, 188, 170, 128] },
       average: { values: [170, 150, 135, 115, 128, 110, 120] }
     };
-
-    Object.values(paymentChartData).forEach((metric) => {
-      metric.line = buildPaymentLine(metric.values);
-      metric.area = buildPaymentArea(metric.line);
-      metric.collapsed = buildCollapsedPaymentLine(metric.values);
-    });
+    prepChartData(paymentChartData);
 
     const paymentChartLine = document.getElementById("paymentChartLine");
     const paymentChartArea = document.getElementById("paymentChartArea");
     const paymentChartPoints = document.getElementById("paymentChartPoints");
-    const paymentCircles = paymentChartPoints ? Array.from(paymentChartPoints.querySelectorAll("circle")) : [];
-
-    function initPaymentChart() {
-      if (!paymentChartLine || !paymentChartArea) return;
-      const revenue = paymentChartData.revenue;
-      paymentChartLine.setAttribute("d", revenue.line);
-      paymentChartArea.setAttribute("d", revenue.area);
-      paymentCircles.forEach((circle, i) => {
-        if (revenue.values[i] !== undefined) {
-          circle.setAttribute("cx", PAYMENT_CHART_XS[i]);
-          circle.setAttribute("cy", revenue.values[i]);
-          circle.removeAttribute("hidden");
-        }
-      });
-    }
-    initPaymentChart();
+    initChart(paymentChartLine, paymentChartArea, paymentChartPoints, paymentChartData.revenue);
 
     document.querySelectorAll("[data-payment-metric]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -940,43 +982,8 @@
         const fromButton = button.parentElement.querySelector("button.active");
         if (fromButton?.dataset.paymentMetric === metric) return;
         const from = paymentChartData[fromButton?.dataset.paymentMetric] || paymentChartData.revenue;
-
         button.parentElement.querySelectorAll("button").forEach((item) => item.classList.toggle("active", item === button));
-
-        if (window.gsap && !reduceMotion && paymentChartLine && paymentChartArea) {
-          const tl = window.gsap.timeline();
-          window.gsap.killTweensOf([paymentChartLine, paymentChartArea, ...paymentCircles]);
-
-          // Phase 1 — сворачиваем текущий график к левому краю (обратная траектория)
-          tl.to(paymentChartLine, { attr: { d: from.collapsed }, duration: 0.4, ease: "power2.inOut" }, 0);
-          tl.to(paymentChartArea, { attr: { d: buildPaymentArea(from.collapsed) }, duration: 0.4, ease: "power2.inOut" }, 0);
-          tl.to(paymentCircles, { autoAlpha: 0, scale: 0.6, duration: 0.25, ease: "power2.in", stagger: { amount: 0.1, from: "end" }, transformOrigin: "center" }, 0.08);
-
-          // Phase 2 — меняем набор данных, оставаясь в свёрнутом состоянии
-          tl.call(() => {
-            paymentChartLine.setAttribute("d", to.collapsed);
-            paymentChartArea.setAttribute("d", buildPaymentArea(to.collapsed));
-            paymentCircles.forEach((circle, i) => {
-              circle.setAttribute("cx", PAYMENT_CHART_XS[i]);
-              circle.setAttribute("cy", to.values[i]);
-              window.gsap.set(circle, { autoAlpha: 0, scale: 0.6 });
-            });
-          });
-
-          // Phase 3 — рисуем новый график слева направо
-          tl.to(paymentChartLine, { attr: { d: to.line }, duration: 0.55, ease: "power2.out" });
-          tl.to(paymentChartArea, { attr: { d: to.area }, duration: 0.55, ease: "power2.out" }, "<");
-
-          // Phase 4 — после отрисовки линии точки появляются на графике
-          tl.to(paymentCircles, { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)", stagger: { amount: 0.22, from: "start" }, transformOrigin: "center" });
-        } else {
-          paymentChartLine?.setAttribute("d", to.line);
-          paymentChartArea?.setAttribute("d", to.area);
-          paymentCircles.forEach((circle, i) => {
-            circle.setAttribute("cx", PAYMENT_CHART_XS[i]);
-            circle.setAttribute("cy", to.values[i]);
-          });
-        }
+        switchChart(paymentChartLine, paymentChartArea, paymentChartPoints, from, to);
       });
     });
 
