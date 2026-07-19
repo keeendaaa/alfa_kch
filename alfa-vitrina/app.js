@@ -653,6 +653,7 @@
         setupLayout?.classList.add("is-analyzed");
         aiBusinessDraft.hidden = false;
         analyzeBusiness.textContent = "Черновик собран";
+        updateDraftConfirmation();
 
         if (window.gsap && !reduceMotion && previousHeading && previousPanel) {
           const nextHeading = setupHeading.getBoundingClientRect();
@@ -661,8 +662,8 @@
           window.gsap.timeline({ defaults: { ease: "power3.out" } })
             .fromTo(setupHeading, { x: previousHeading.left - nextHeading.left }, { x: 0, duration: 0.75 }, 0)
             .fromTo(setupPanel, { x: previousPanel.left - nextPanel.left }, { x: 0, duration: 0.75 }, 0)
-            .fromTo(aiBusinessDraft, { x: 56, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.7 }, 0.08)
-            .from(draftItems, { y: 22, autoAlpha: 0, stagger: 0.06, duration: 0.42 }, 0.22);
+            .fromTo(aiBusinessDraft, { x: 56, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.7, clearProps: "transform,opacity,visibility" }, 0.08)
+            .fromTo(draftItems, { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, stagger: 0.06, duration: 0.42, clearProps: "transform,opacity,visibility" }, 0.22);
         }
 
         if (window.matchMedia("(max-width: 1000px)").matches) {
