@@ -37,7 +37,7 @@
               <p>Что ты продаёшь, как сейчас принимаешь клиентов и что хочешь запустить первым?</p>
             </div>
             <label for="businessIdea">Описание бизнеса</label>
-            <textarea id="businessIdea" class="business-idea">Я бьюти-мастер. Делаю макияж и хочу продавать наборы домашнего ухода, а ещё проводить небольшие мастер-классы. Клиенты пишут в Telegram, иногда отменяют запись в последний момент.</textarea>
+            <textarea id="businessIdea" class="business-idea">Я снимаю и монтирую короткие видео для локальных брендов. Хочу продавать пакеты из 4, 8 и 12 роликов для Reels, Shorts и TikTok. Клиенты пишут в Telegram, сроки и правки часто обсуждаем устно.</textarea>
             <button id="analyzeBusiness" class="btn btn-primary" type="button">Собрать витрину с AI</button>
             <p class="demo-note">Демонстрационный сценарий: AI формирует черновик, а публикацию и платежные условия подтверждает предприниматель.</p>
           </div>
@@ -46,47 +46,47 @@
             <div class="draft-head">
               <div>
                 <span class="badge badge-green">Черновик готов</span>
-                <h2>Студия Леры</h2>
+                <h2>Reels для брендов</h2>
               </div>
               <span class="draft-confidence">3 сценария продаж</span>
             </div>
             <div class="draft-grid">
-              <article><span>Услуга</span><strong>Макияж</strong><small>Студия · запись · 90 минут</small></article>
-              <article><span>Товар</span><strong>Набор ухода</strong><small>Доставка или самовывоз</small></article>
-              <article><span>Событие</span><strong>Мастер-класс</strong><small>8 мест · полная оплата</small></article>
+              <article><span>Видео-пакет</span><strong>4 ролика</strong><small>Reels / Shorts / TikTok · 7–10 дней</small></article>
+              <article><span>Видео-пакет</span><strong>8 роликов</strong><small>Месячный контент-план · скидка</small></article>
+              <article><span>Видео-пакет</span><strong>12 роликов</strong><small>Полный комплект · обложки · хуки</small></article>
             </div>
             <div class="ai-question">
               <strong>Предлагаю начать так</strong>
-              <p>Карты и СБП, запись по слотам, полная оплата мастер-класса. Предоплату за услуги пока не включаю: сначала проверим долю отмен.</p>
+              <p>Карты и СБП, полная оплата пакета. Бриф и сроки фиксируем в заказе. Предоплату пока не включаю: сначала проверим, как клиенты реагируют на пакеты.</p>
             </div>
             <div class="geo-question">
               <div class="geo-question-head">
-                <span class="badge badge-pink">Нужна география</span>
+                <span class="badge badge-pink">Нужен формат работы</span>
                 <div>
-                  <strong>Где ты работаешь с клиентами?</strong>
-                  <p>AI заметил запись в студию и самовывоз. География повлияет на доступные слоты, доставку и то, кому показывать витрину.</p>
+                  <strong>Как ты работаешь с клиентами?</strong>
+                  <p>AI заметил, что услуга цифровая. Формат влияет на доступные поля в заказе и то, как клиент видит сроки.</p>
                 </div>
               </div>
               <div class="geo-fields">
                 <div class="form-group">
                   <label for="serviceMode">Формат работы</label>
                   <select id="serviceMode">
+                    <option value="Только онлайн" selected>Только онлайн</option>
                     <option value="В студии">В студии</option>
                     <option value="С выездом">Выезжаю к клиенту</option>
                     <option value="В студии и с выездом">В студии и с выездом</option>
-                    <option value="Только онлайн">Только онлайн</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="businessCity">Город</label>
-                  <input id="businessCity" value="Екатеринбург" autocomplete="address-level2">
+                  <label for="businessCity">Город / регион</label>
+                  <input id="businessCity" value="Россия" autocomplete="address-level2">
                 </div>
                 <div class="form-group full">
-                  <label for="serviceArea">Районы или зона выезда</label>
-                  <input id="serviceArea" value="Центр, Втузгородок" placeholder="Например, центр и до 10 км">
+                  <label for="serviceArea">Зона / ниша</label>
+                  <input id="serviceArea" value="Локальные бренды, кафе, магазины" placeholder="Например, бьюти и HoReCa">
                 </div>
               </div>
-              <p class="geo-privacy">Точный адрес не публикуем: клиент увидит его только после подтверждённой записи.</p>
+              <p class="geo-privacy">Точный адрес не публикуем: клиент увидит контакты только после подтверждённого заказа.</p>
             </div>
             <label class="confirm-row"><input id="confirmDraft" type="checkbox"> Я проверила карточки, цены, географию и условия</label>
             <button id="publishAiDraft" class="btn btn-green" type="button" disabled>Подтвердить и опубликовать</button>
@@ -100,11 +100,11 @@
           <div class="form-grid">
             <div class="form-group full">
               <label for="shopName">Название магазина</label>
-              <input type="text" id="shopName" placeholder="Например, Студия Леры" value="Студия Леры">
+              <input type="text" id="shopName" placeholder="Например, Reels для брендов" value="Reels для брендов">
             </div>
             <div class="form-group full">
               <label for="shopDesc">Описание витрины</label>
-              <textarea id="shopDesc" placeholder="Расскажи, что ты продаёшь">Макияж, домашний уход и камерные мастер-классы в Екатеринбурге.</textarea>
+              <textarea id="shopDesc" placeholder="Расскажи, что ты продаёшь">Съёмка и монтаж коротких видео для локальных брендов: Reels, Shorts и TikTok.</textarea>
             </div>
           </div>
         </div>
@@ -127,6 +127,7 @@
             <div class="form-group">
               <label for="productCategory">Категория</label>
               <select id="productCategory">
+                <option>Видео-пакет</option>
                 <option>Услуга</option>
                 <option>Уход</option>
                 <option>Мастер-класс</option>
@@ -162,7 +163,7 @@
           <h2 class="panel-title">Ссылка на витрину</h2>
           <p style="color: var(--text-secondary); margin-bottom: 16px;">Отправь эту ссылку клиентам или размести в соцсетях.</p>
           <div class="share-box">
-            <input type="text" id="showcaseLink" readonly value="https://alfa-vitrina.ru/s/studiya-lery">
+            <input type="text" id="showcaseLink" readonly value="https://alfa-vitrina.ru/s/reels-dlya-brendov">
             <button id="copyLink" class="btn btn-secondary">Копировать</button>
             <a href="showcase.html" target="_blank" class="btn btn-outline">Открыть</a>
           </div>
@@ -182,8 +183,8 @@
         <div class="crm-metrics">
           <article class="crm-metric crm-metric-accent">
             <span>Выручка за июль</span>
-            <strong id="ordersRevenue">84 360 ₽</strong>
-            <small>На 18% больше июня</small>
+            <strong id="ordersRevenue">160 360 ₽</strong>
+            <small>На 24% больше июня</small>
           </article>
           <article class="crm-metric">
             <span>Новые</span>
@@ -193,12 +194,12 @@
           <article class="crm-metric">
             <span>В работе</span>
             <strong>5</strong>
-            <small>Сборка и доставка</small>
+            <small>Бриф и монтаж</small>
           </article>
           <article class="crm-metric">
             <span>Средний чек</span>
-            <strong id="averageOrderValue">8 436 ₽</strong>
-            <small id="paidOrdersCount">10 оплаченных заказов</small>
+            <strong id="averageOrderValue">11 454 ₽</strong>
+            <small id="paidOrdersCount">14 оплаченных заказов</small>
           </article>
         </div>
 
@@ -215,8 +216,8 @@
               </div>
             </div>
             <div class="chart-summary">
-              <strong id="ordersChartTotal">84 360 ₽</strong>
-              <span id="ordersChartDelta">+18% к прошлой неделе</span>
+              <strong id="ordersChartTotal">160 360 ₽</strong>
+              <span id="ordersChartDelta">+24% к прошлой неделе</span>
             </div>
             <div class="line-chart" data-chart="orders">
               <svg viewBox="0 0 760 260" role="img" aria-label="График оплаченной выручки по дням">
@@ -264,8 +265,8 @@
             </div>
             <div class="copilot-response" id="ordersCopilotResponse" aria-live="polite">
               <strong>Повторные продажи можно поднять без скидки</strong>
-              <p>7 из 10 клиентов возвращаются за макияжем через 24–32 дня. Добавь напоминание о повторной записи через 26 дней и предложи набор ухода после услуги.</p>
-              <small>Основано на истории заказов и обезличенной когорте 128 похожих мастеров.</small>
+              <p>7 из 10 клиентов заказывают следующий пакет за 5–7 дней до сдачи текущего. Добавь напоминание о продлении на 20-й день работы и предложи обложки к готовым роликам.</p>
+              <small>Основано на истории заказов и обезличенной когорте 96 видео-мейкеров.</small>
             </div>
             <button id="ordersCopilotAction" class="btn btn-green copilot-primary-action" type="button" hidden>Создать комплект</button>
             <div class="copilot-actions">
@@ -279,11 +280,11 @@
             <span class="crm-eyebrow">Состав выручки</span>
             <h2 class="panel-title">Что покупают</h2>
             <div class="horizontal-bars">
-              <div><span>Макияж</span><strong>51%</strong><i><b style="--bar: 51%"></b></i></div>
-              <div><span>Мастер-классы</span><strong>32%</strong><i><b style="--bar: 32%"></b></i></div>
-              <div><span>Наборы ухода</span><strong>17%</strong><i><b style="--bar: 17%"></b></i></div>
+              <div><span>Пакет 8 роликов</span><strong>48%</strong><i><b style="--bar: 48%"></b></i></div>
+              <div><span>Пакет 4 ролика</span><strong>35%</strong><i><b style="--bar: 35%"></b></i></div>
+              <div><span>Пакет 12 роликов</span><strong>17%</strong><i><b style="--bar: 17%"></b></i></div>
             </div>
-            <div class="mix-signal"><span>Сигнал</span><p>Набор ухода добавляют только в 12% заказов на макияж. У похожей когорты — 26%.</p></div>
+            <div class="mix-signal"><span>Сигнал</span><p>Обложки к роликам заказывают только в 14% пакетов. У похожей когорты — 31%.</p></div>
           </article>
         </div>
 
@@ -308,33 +309,33 @@
             <article class="crm-row" data-order-status="new">
               <div data-label="Заказ"><strong>#1048</strong><small>Сегодня, 12:34</small></div>
               <div data-label="Клиент"><strong>Анна Соколова</strong><small>Telegram</small></div>
-              <div data-label="Состав"><strong>Макияж для события</strong><small>22 июля, 12:00</small></div>
+              <div data-label="Состав"><strong>Пакет из 8 роликов</strong><small>В течение недели</small></div>
               <div data-label="Статус"><span class="status status-new">Новый</span></div>
-              <div data-label="Сумма"><strong>3 500 ₽</strong><small class="paid">Оплачен</small></div>
+              <div data-label="Сумма"><strong>22 000 ₽</strong><small class="paid">Оплачен</small></div>
               <button type="button" class="row-action">Открыть</button>
             </article>
             <article class="crm-row" data-order-status="work">
               <div data-label="Заказ"><strong>#1047</strong><small>Сегодня, 10:18</small></div>
               <div data-label="Клиент"><strong>Максим Орлов</strong><small>Телефон</small></div>
-              <div data-label="Состав"><strong>Набор домашнего ухода</strong><small>Доставка</small></div>
-              <div data-label="Статус"><span class="status status-work">Доставка</span></div>
-              <div data-label="Сумма"><strong>1 900 ₽</strong><small class="paid">Оплачен</small></div>
+              <div data-label="Состав"><strong>Пакет из 4 роликов</strong><small>Монтаж</small></div>
+              <div data-label="Статус"><span class="status status-work">В работе</span></div>
+              <div data-label="Сумма"><strong>12 000 ₽</strong><small class="paid">Оплачен</small></div>
               <button type="button" class="row-action">Открыть</button>
             </article>
             <article class="crm-row" data-order-status="work">
               <div data-label="Заказ"><strong>#1046</strong><small>Вчера, 19:42</small></div>
               <div data-label="Клиент"><strong>Елена Ким</strong><small>VK</small></div>
-              <div data-label="Состав"><strong>Мастер-класс по макияжу</strong><small>2 места</small></div>
-              <div data-label="Статус"><span class="status status-work">Сборка</span></div>
-              <div data-label="Сумма"><strong>9 800 ₽</strong><small class="paid">Оплачен</small></div>
+              <div data-label="Состав"><strong>Пакет из 12 роликов</strong><small>Бриф</small></div>
+              <div data-label="Статус"><span class="status status-work">Бриф</span></div>
+              <div data-label="Сумма"><strong>30 000 ₽</strong><small class="paid">Оплачен</small></div>
               <button type="button" class="row-action">Открыть</button>
             </article>
             <article class="crm-row" data-order-status="done">
               <div data-label="Заказ"><strong>#1045</strong><small>18 июля, 16:05</small></div>
               <div data-label="Клиент"><strong>Илья Волков</strong><small>Telegram</small></div>
-              <div data-label="Состав"><strong>Макияж для события</strong><small>Получен</small></div>
-              <div data-label="Статус"><span class="status status-done">Получен</span></div>
-              <div data-label="Сумма"><strong>3 500 ₽</strong><small class="paid">Оплачен</small></div>
+              <div data-label="Состав"><strong>Пакет из 4 роликов</strong><small>Сдан</small></div>
+              <div data-label="Статус"><span class="status status-done">Сдан</span></div>
+              <div data-label="Сумма"><strong>12 000 ₽</strong><small class="paid">Оплачен</small></div>
               <button type="button" class="row-action">Открыть</button>
             </article>
           </div>
@@ -362,15 +363,15 @@
           <article class="recommendation-card">
             <div class="recommendation-topline">
               <span class="badge badge-pink">Найдена потеря</span>
-              <span class="recommendation-impact">≈ 22 800 ₽ / месяц</span>
+              <span class="recommendation-impact">≈ 36 000 ₽ / месяц</span>
             </div>
-            <h2>31% записей отменяются</h2>
-            <p>У обезличенной группы похожих бьюти-мастеров с предоплатой доля отмен ниже. Попробуй брать 20% при записи.</p>
+            <h2>28% проектов затягиваются из-за брифа</h2>
+            <p>У обезличенной группы видео-мейкеров с утверждённым брифом и предоплатой срывов меньше. Попробуй брать 30% перед стартом.</p>
             <div class="cohort-compare">
-              <div><span>У тебя</span><strong>31%</strong><small>отмен и неявок</small></div>
-              <div><span>Похожая когорта</span><strong>18%</strong><small>при предоплате</small></div>
+              <div><span>У тебя</span><strong>28%</strong><small>переносов и срывов</small></div>
+              <div><span>Похожая когорта</span><strong>12%</strong><small>при предоплате 30%</small></div>
             </div>
-            <button id="enablePrepayment" class="btn btn-primary" type="button">Включить предоплату 20%</button>
+            <button id="enablePrepayment" class="btn btn-primary" type="button">Включить предоплату 30%</button>
             <p class="demo-note">Условие будет добавлено на витрину только после подтверждения. Отключить механику можно в любой момент.</p>
           </article>
 
@@ -395,8 +396,8 @@
         <div class="panel next-product-card">
           <div>
             <span class="crm-eyebrow">Следующий инструмент</span>
-            <h2 class="panel-title">Подели пока не нужен</h2>
-            <p>Средний чек услуг ниже порога, при котором BNPL способен увеличить число оплаченных заказов. Альфа покажет предложение только после появления сигнала.</p>
+            <h2 class="panel-title">Рекуррент пока не нужен</h2>
+            <p>Регулярность заказов ещё не подтверждена данными. Когда клиенты начнут возвращаться каждый месяц, Альфа предложит абонемент или рекуррентный платёж.</p>
           </div>
           <span class="next-product-status">Не подключаем без пользы</span>
         </div>
@@ -438,7 +439,7 @@
         <div class="balance-card">
           <div>
             <span>Доступно к выводу</span>
-            <strong>76 420,80 ₽</strong>
+            <strong>150 351 ₽</strong>
             <p>Следующее зачисление на счёт сегодня</p>
           </div>
           <button class="btn btn-white" type="button">Вывести деньги</button>
@@ -446,9 +447,9 @@
         </div>
 
         <div class="payment-metrics">
-          <article><span>Поступило за месяц</span><strong id="paymentsReceived">84 360 ₽</strong><small id="paymentsCount">12 платежей</small></article>
-          <article><span>Ожидает зачисления</span><strong>7 939,20 ₽</strong><small>1 платёж</small></article>
-          <article><span>Комиссия</span><strong>2 169,20 ₽</strong><small>2,5% от оборота</small></article>
+          <article><span>Поступило за месяц</span><strong id="paymentsReceived">160 360 ₽</strong><small id="paymentsCount">16 платежей</small></article>
+          <article><span>Ожидает зачисления</span><strong>22 000 ₽</strong><small>1 платёж</small></article>
+          <article><span>Комиссия</span><strong>4 009 ₽</strong><small>2,5% от оборота</small></article>
         </div>
 
         <div class="analytics-grid payments-analytics-grid">
@@ -458,10 +459,10 @@
               <span class="badge badge-white">Последние 7 дней</span>
             </div>
             <div class="metric-tabs" role="tablist" aria-label="Метрика финансового графика">
-              <button class="active" type="button" data-payment-metric="revenue"><span>Выручка</span><strong>24 755 ₽</strong></button>
-              <button type="button" data-payment-metric="refunds"><span>Возвраты</span><strong>3 500 ₽</strong></button>
-              <button type="button" data-payment-metric="fees"><span>Комиссии</span><strong>618 ₽</strong></button>
-              <button type="button" data-payment-metric="average"><span>Средний чек</span><strong>3 094 ₽</strong></button>
+              <button class="active" type="button" data-payment-metric="revenue"><span>Выручка</span><strong>160 360 ₽</strong></button>
+              <button type="button" data-payment-metric="refunds"><span>Возвраты</span><strong>6 000 ₽</strong></button>
+              <button type="button" data-payment-metric="fees"><span>Комиссии</span><strong>4 009 ₽</strong></button>
+              <button type="button" data-payment-metric="average"><span>Средний чек</span><strong>11 454 ₽</strong></button>
             </div>
             <div class="line-chart payment-line-chart" data-chart="payments">
               <svg viewBox="0 0 760 260" role="img" aria-label="График выбранного финансового показателя">
@@ -500,7 +501,7 @@
             </div>
             <div class="copilot-response" id="paymentsCopilotResponse" aria-live="polite">
               <strong>СБП уже экономит комиссию, но есть ещё потенциал</strong>
-              <p>Покажи СБП первым способом на мобильных устройствах. По похожей когорте это может перевести ещё 9–13% оплат с карт без снижения конверсии.</p>
+              <p>Покажи СБП первым способом на мобильных устройствах. По похожей когорте видео-мейкеров это может перевести ещё 9–13% оплат с карт без снижения конверсии.</p>
               <small>Copilot оптимизирует оплаченную выручку после возвратов и комиссий, а не прибыль.</small>
             </div>
             <div class="copilot-actions">
@@ -514,10 +515,10 @@
             <span class="crm-eyebrow">После оплаты</span>
             <h2 class="panel-title">Чистая выручка</h2>
             <div class="finance-waterfall">
-              <div><span>Оплачено</span><strong>24 755 ₽</strong></div>
-              <div class="negative"><span>Возвраты</span><strong>−3 500 ₽</strong></div>
-              <div class="negative"><span>Комиссии</span><strong>−618 ₽</strong></div>
-              <div class="total"><span>После платежей</span><strong>20 637 ₽</strong></div>
+              <div><span>Оплачено</span><strong>160 360 ₽</strong></div>
+              <div class="negative"><span>Возвраты</span><strong>−6 000 ₽</strong></div>
+              <div class="negative"><span>Комиссии</span><strong>−4 009 ₽</strong></div>
+              <div class="total"><span>После платежей</span><strong>150 351 ₽</strong></div>
             </div>
             <p class="analytics-footnote">Себестоимость не подключена, поэтому прибыль не рассчитывается.</p>
           </article>
@@ -545,28 +546,28 @@
               <div data-label="Заказ"><strong>#1048</strong><small>Анна Соколова</small></div>
               <div data-label="Способ"><strong>СБП</strong><small>Мгновенно</small></div>
               <div data-label="Статус"><span class="status status-done">Зачислен</span></div>
-              <div data-label="Сумма"><strong class="amount-positive">+3 412,50 ₽</strong><small>Комиссия 87,50 ₽</small></div>
+              <div data-label="Сумма"><strong class="amount-positive">+21 450 ₽</strong><small>Комиссия 550 ₽</small></div>
             </article>
             <article class="crm-row">
               <div data-label="Операция"><strong>Оплата</strong><small>Сегодня, 10:18</small></div>
               <div data-label="Заказ"><strong>#1047</strong><small>Максим Орлов</small></div>
               <div data-label="Способ"><strong>Карта</strong><small>•• 4582</small></div>
               <div data-label="Статус"><span class="status status-work">В обработке</span></div>
-              <div data-label="Сумма"><strong>+1 852,50 ₽</strong><small>Комиссия 47,50 ₽</small></div>
+              <div data-label="Сумма"><strong>+11 700 ₽</strong><small>Комиссия 300 ₽</small></div>
             </article>
             <article class="crm-row">
               <div data-label="Операция"><strong>Выплата</strong><small>18 июля, 09:00</small></div>
               <div data-label="Заказ"><strong>На счёт</strong><small>•• 0214</small></div>
               <div data-label="Способ"><strong>Альфа-Банк</strong><small>Расчётный счёт</small></div>
               <div data-label="Статус"><span class="status status-done">Исполнен</span></div>
-              <div data-label="Сумма"><strong>−42 500 ₽</strong><small>Без комиссии</small></div>
+              <div data-label="Сумма"><strong>−98 000 ₽</strong><small>Без комиссии</small></div>
             </article>
             <article class="crm-row">
               <div data-label="Операция"><strong>Возврат</strong><small>16 июля, 15:21</small></div>
               <div data-label="Заказ"><strong>#1039</strong><small>Ольга Миронова</small></div>
               <div data-label="Способ"><strong>Карта</strong><small>•• 7810</small></div>
               <div data-label="Статус"><span class="status status-refund">Возврат</span></div>
-              <div data-label="Сумма"><strong class="amount-negative">−3 500 ₽</strong><small>Комиссия возвращена</small></div>
+              <div data-label="Сумма"><strong class="amount-negative">−6 000 ₽</strong><small>Комиссия возвращена</small></div>
             </article>
           </div>
         </div>

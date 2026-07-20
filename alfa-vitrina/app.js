@@ -4,34 +4,35 @@
   const DEFAULT_PRODUCTS = [
     {
       id: "p1",
-      name: "Макияж для события",
-      price: 3500,
-      image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=85",
-      category: "Услуга",
+      name: "Пакет из 4 роликов",
+      price: 12000,
+      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=900&q=85",
+      category: "Видео-пакет",
       type: "service",
-      desc: "Образ для события с подготовкой кожи и стойким макияжем. Длительность — 90 минут."
+      desc: "Съёмка и монтаж 4 коротких роликов для Reels / Shorts / TikTok. Бриф, сценарий, монтаж и цветокоррекция включены. Срок — 7–10 дней."
     },
     {
       id: "p2",
-      name: "Набор домашнего ухода",
-      price: 1900,
-      image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=900&q=85",
-      category: "Уход",
-      type: "product",
-      desc: "Базовый набор для подготовки и восстановления кожи. Можно забрать в студии или заказать доставку."
+      name: "Пакет из 8 роликов",
+      price: 22000,
+      image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=900&q=85",
+      category: "Видео-пакет",
+      type: "service",
+      desc: "8 готовых роликов с единым стилем. Подходит для месячного контент-плана. Скидка по сравнению с покупкой поштучно."
     },
     {
       id: "p3",
-      name: "Мастер-класс по макияжу",
-      price: 4900,
-      image: "https://images.unsplash.com/photo-1487412912498-0447578fcca8?auto=format&fit=crop&w=900&q=85",
-      category: "Мастер-класс",
-      type: "event",
-      desc: "Камерная группа до восьми человек. Практика, разбор косметички и материалы включены."
+      name: "Пакет из 12 роликов",
+      price: 30000,
+      image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=85",
+      category: "Видео-пакет",
+      type: "service",
+      desc: "Полный комплект контента на месяц: 12 роликов, обложки, хуки и рекомендации по публикации. Срок — до 14 дней."
     }
   ];
 
   const AI_DESCRIPTIONS = {
+    "Видео-пакет": "Пакет из нескольких коротких роликов. Укажи количество, формат (Reels / Shorts / TikTok), срок сдачи и что входит в монтаж.",
     "Услуга": "Персональная услуга по предварительной записи. Укажи длительность, подготовку и ожидаемый результат.",
     "Уход": "Набор домашнего ухода с понятным составом и рекомендациями по использованию.",
     "Мастер-класс": "Практический мастер-класс в небольшой группе. Материалы и обратная связь включены.",
@@ -41,18 +42,18 @@
   };
 
   const DEFAULT_SHOP = {
-    name: "Студия Леры",
-    desc: "Макияж, домашний уход и камерные мастер-классы в Екатеринбурге."
+    name: "Reels для брендов",
+    desc: "Съёмка и монтаж коротких видео для локальных брендов: Reels, Shorts и TikTok."
   };
 
   const BUNDLE_PRODUCT = {
-    id: "bundle-care",
-    name: "Макияж + набор ухода",
-    price: 4900,
-    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=85",
+    id: "bundle-video",
+    name: "Пакет 8 + обложки",
+    price: 24000,
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=900&q=85",
     category: "Комплект",
     type: "bundle",
-    desc: "Макияж для события и набор домашнего ухода в одном заказе. Экономия 500 ₽."
+    desc: "8 роликов плюс обложки и хуки для каждого. Экономия 2 000 ₽ по сравнению с заказом по отдельности."
   };
 
   function loadProducts() {
@@ -60,16 +61,16 @@
       const raw = localStorage.getItem("alfaVitrina_products");
       let products = raw ? JSON.parse(raw) : [...DEFAULT_PRODUCTS];
 
-      if (localStorage.getItem("alfaVitrina_productsVersion") !== "3") {
-        const isOldDemo = products.some((product) => /Nike|Adidas|New Balance/i.test(product.name));
+      if (localStorage.getItem("alfaVitrina_productsVersion") !== "4") {
+        const isOldDemo = products.some((product) => /Nike|Adidas|New Balance|Макияж|Набор домашнего ухода|Мастер-класс по макияжу/i.test(product.name));
         if (isOldDemo) products = [...DEFAULT_PRODUCTS];
         localStorage.setItem("alfaVitrina_products", JSON.stringify(products));
-        localStorage.setItem("alfaVitrina_productsVersion", "3");
+        localStorage.setItem("alfaVitrina_productsVersion", "4");
       }
 
       products = products.map((product) => ({
         ...product,
-        type: product.type || (product.category === "Услуга" ? "service" : product.category === "Мастер-класс" ? "event" : product.category === "Абонемент" ? "subscription" : product.category === "Предзаказ" ? "preorder" : "product")
+        type: product.type || (product.category === "Видео-пакет" ? "service" : product.category === "Услуга" ? "service" : product.category === "Мастер-класс" ? "event" : product.category === "Абонемент" ? "subscription" : product.category === "Предзаказ" ? "preorder" : "product")
       }));
 
       return products;
@@ -86,7 +87,7 @@
     try {
       const raw = localStorage.getItem("alfaVitrina_shop");
       const shop = raw ? JSON.parse(raw) : DEFAULT_SHOP;
-      return /Кроссовки/i.test(shop.name) ? DEFAULT_SHOP : shop;
+      return /Кроссовки|Студия Леры/i.test(shop.name) ? DEFAULT_SHOP : shop;
     } catch {
       return DEFAULT_SHOP;
     }
@@ -102,7 +103,7 @@
         prepaymentEnabled: false,
         onboardingComplete: false,
         bundleEnabled: false,
-        location: { mode: "В студии", city: "Екатеринбург", area: "Центр, Втузгородок" },
+        location: { mode: "Только онлайн", city: "Россия", area: "Работаю удалённо" },
         orders: [],
         events: [],
         ...JSON.parse(localStorage.getItem("alfaVitrina_demoState") || "{}")
@@ -112,7 +113,7 @@
         prepaymentEnabled: false,
         onboardingComplete: false,
         bundleEnabled: false,
-        location: { mode: "В студии", city: "Екатеринбург", area: "Центр, Втузгородок" },
+        location: { mode: "Только онлайн", city: "Россия", area: "Работаю удалённо" },
         orders: [],
         events: []
       };
@@ -134,6 +135,7 @@
   }
 
   function productTypeLabel(product) {
+    if (product.category === "Видео-пакет") return "Видео-пакет";
     if (product.type === "service") return "Услуга";
     if (product.type === "event") return "Мастер-класс";
     if (product.type === "bundle") return "Комплект";
@@ -214,7 +216,7 @@
       <article class="showcase-card" data-product-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${escapeHtml(p.name)}">
         <div class="showcase-card-img">${isImageUrl(p.image) ? `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}">` : escapeHtml(p.image)}</div>
         <div class="showcase-card-body">
-          <span class="showcase-card-type">${productTypeLabel(p)}</span>${demoState.prepaymentEnabled && p.type === "service" ? '<span class="showcase-prepayment">Предоплата 20%</span>' : ""}
+          <span class="showcase-card-type">${productTypeLabel(p)}</span>${demoState.prepaymentEnabled && p.type === "service" && p.category !== "Видео-пакет" ? '<span class="showcase-prepayment">Предоплата 20%</span>' : ""}
           <h3 class="showcase-card-title">${escapeHtml(p.name)}</h3>
           <div class="showcase-card-price">${formatPrice(p.price)}</div>
         </div>
@@ -258,15 +260,18 @@
       dialogDesc.textContent = product.desc || "Подробное описание появится позже.";
       dialogCategory.textContent = product.category || "Товар";
       const isService = product.type === "service" || product.type === "event" || product.type === "subscription";
+      const isVideo = product.category === "Видео-пакет";
       metaOneLabel.textContent = isService ? "Формат" : "Получение";
-      metaOneValue.textContent = product.type === "event" ? "Группа до 8 человек" : isService ? "По записи" : "Доставка / самовывоз";
-      metaTwoLabel.textContent = isService ? "Место" : "Срок";
+      metaOneValue.textContent = isVideo ? "Пакет роликов" : product.type === "event" ? "Группа до 8 человек" : isService ? "По записи" : "Доставка / самовывоз";
+      metaTwoLabel.textContent = isService ? (isVideo ? "Срок" : "Место") : "Срок";
       const location = loadDemoState().location;
-      metaTwoValue.textContent = isService
+      metaTwoValue.textContent = isVideo
+        ? "7–14 дней"
+        : isService
         ? (location.mode === "Только онлайн" ? "Онлайн" : `${location.mode} · ${location.city}`)
         : "1–3 дня";
-      dialogPaymentValue.textContent = loadDemoState().prepaymentEnabled && product.type === "service" ? "Предоплата 20%" : "Карта или СБП";
-      dialogBuyButton.textContent = isService ? "Выбрать время и оплатить" : "Оформить заказ";
+      dialogPaymentValue.textContent = loadDemoState().prepaymentEnabled && product.type === "service" && !isVideo ? "Предоплата 20%" : "Карта или СБП";
+      dialogBuyButton.textContent = isService ? (isVideo ? "Выбрать срок и оплатить" : "Выбрать время и оплатить") : "Оформить заказ";
       trackEvent("view_product", { productId: product.id });
       dialog.showModal();
 
@@ -293,7 +298,8 @@
 
     function openCheckout(product) {
       const state = loadDemoState();
-      const usesPrepayment = state.prepaymentEnabled && product.type === "service";
+      const isVideo = product.category === "Видео-пакет";
+      const usesPrepayment = state.prepaymentEnabled && product.type === "service" && !isVideo;
       checkoutAmount = usesPrepayment ? Math.round(product.price * 0.2) : product.price;
       document.getElementById("checkoutProductCategory").textContent = productTypeLabel(product);
       document.getElementById("checkoutProductName").textContent = product.name;
@@ -305,6 +311,25 @@
       fulfillmentGroup.hidden = !requiresFulfillment;
       deliveryAddressGroup.hidden = !requiresFulfillment || fulfillmentMethod.value !== "Доставка";
       prepaymentNotice.hidden = !usesPrepayment;
+
+      const bookingLabel = bookingSlotGroup.querySelector("label");
+      const bookingSelect = bookingSlotGroup.querySelector("select");
+      if (isVideo && bookingLabel && bookingSelect) {
+        bookingLabel.textContent = "Срок старта проекта";
+        bookingSelect.innerHTML = `
+          <option>В течение недели</option>
+          <option>Через 2 недели</option>
+          <option>Через месяц</option>
+        `;
+      } else if (bookingLabel && bookingSelect) {
+        bookingLabel.textContent = "Время записи";
+        bookingSelect.innerHTML = `
+          <option>22 июля, 12:00</option>
+          <option>22 июля, 16:30</option>
+          <option>23 июля, 11:00</option>
+        `;
+      }
+
       checkoutFields.hidden = false;
       checkoutSuccess.hidden = true;
       dialog.close();
@@ -354,7 +379,9 @@
 
       document.getElementById("receiptNumber").textContent = `№ ${orderNumber}`;
       document.getElementById("receiptAmount").textContent = `${formatPrice(checkoutAmount)} · ${paymentMethod}`;
-      document.getElementById("checkoutSuccessText").textContent = selectedProduct.type === "product"
+      document.getElementById("checkoutSuccessText").textContent = selectedProduct.category === "Видео-пакет"
+        ? `Проект стартует ${order.slot.toLowerCase()}. Демонстрационный чек отправлен на телефон.`
+        : selectedProduct.type === "product"
         ? "Заказ подтверждён. Демонстрационный чек отправлен на телефон."
         : `Запись на ${order.slot} подтверждена. Демонстрационный чек отправлен на телефон.`;
       checkoutFields.hidden = true;
@@ -513,17 +540,17 @@
     });
 
     const addedRevenue = state.orders.reduce((sum, order) => sum + order.amount, 0);
-    const orderCount = 10 + state.orders.length;
-    const revenue = 84360 + addedRevenue;
+    const orderCount = 14 + state.orders.length;
+    const revenue = 160360 + addedRevenue;
     if (document.getElementById("ordersRevenue")) document.getElementById("ordersRevenue").textContent = formatPrice(revenue);
     if (document.getElementById("ordersChartTotal")) document.getElementById("ordersChartTotal").textContent = formatPrice(revenue);
     if (document.getElementById("newOrdersCount")) document.getElementById("newOrdersCount").textContent = String(8 + state.orders.length);
     if (document.getElementById("averageOrderValue")) document.getElementById("averageOrderValue").textContent = formatPrice(Math.round(revenue / orderCount));
     if (document.getElementById("paidOrdersCount")) document.getElementById("paidOrdersCount").textContent = `${orderCount} оплаченных заказов`;
     if (document.getElementById("paymentsReceived")) document.getElementById("paymentsReceived").textContent = formatPrice(revenue);
-    if (document.getElementById("paymentsCount")) document.getElementById("paymentsCount").textContent = `${12 + state.orders.length} платежей`;
+    if (document.getElementById("paymentsCount")) document.getElementById("paymentsCount").textContent = `${16 + state.orders.length} платежей`;
     const revenueTab = document.querySelector('[data-payment-metric="revenue"] strong');
-    if (revenueTab) revenueTab.textContent = formatPrice(24755 + addedRevenue);
+    if (revenueTab) revenueTab.textContent = formatPrice(86200 + addedRevenue);
   }
 
   function renderGrowth() {
@@ -688,6 +715,10 @@
       saveProducts([...DEFAULT_PRODUCTS]);
       const state = loadDemoState();
       state.onboardingComplete = true;
+      state.prepaymentEnabled = false;
+      state.bundleEnabled = false;
+      state.orders = [];
+      state.events = [];
       state.location = {
         mode: serviceMode.value,
         city: businessCity.value.trim(),
@@ -729,19 +760,19 @@
 
     const copilotAnswers = {
       repeat: {
-        title: "Напомни клиенту на 26-й день",
-        text: "Интервал повторной записи у твоих клиентов — 24–32 дня. Персональное напоминание на 26-й день точнее массовой скидки и не уменьшает оплаченную выручку.",
+        title: "Напомни клиенту перед окончанием пакета",
+        text: "Клиенты заказывают следующий пакет в среднем за 5–7 дней до финальной сдачи. Персональное предложение продления точнее скидки и не снижает маржу.",
         note: "Сигнал найден в повторных заказах за последние три месяца."
       },
       bundle: {
-        title: "Добавь набор ухода после макияжа",
-        text: "Макияж и набор ухода покупают вместе чаще случайного, но допродажа появляется только в 12% заказов. Создай комплект без скидки и проверь attach rate.",
+        title: "Добавь обложки и хуки к пакету",
+        text: "Ролики с обложками и текстовыми хуками собирают больше просмотров, но клиенты часто не заказывают их отдельно. Создай комплект «ролики + обложки» и проверь attach rate.",
         note: "ML использует состав заказов, а не только сумму платежа."
       },
       cancel: {
-        title: "Основная потеря — запись без предоплаты",
-        text: "Большинство отмен происходит менее чем за 12 часов до визита. Предоплата 20% — приоритетный эксперимент; его можно включить в разделе «Рост».",
-        note: "Сравнение выполнено с обезличенной когортой похожих мастеров."
+        title: "Основная потеря — непроработанный бриф",
+        text: "Большинство отмен и переносов случается, когда сроки или формат роликов не зафиксированы в брифе. Предоплата 30% и утверждённый бриф — приоритетный эксперимент.",
+        note: "Сравнение выполнено с обезличенной когортой видео-мейкеров."
       },
       fees: {
         title: "Покажи СБП первым на мобильных",
@@ -749,8 +780,8 @@
         note: "Прогноз касается комиссии и оплаченной выручки, а не прибыли."
       },
       refunds: {
-        title: "Возвраты связаны с одним мастер-классом",
-        text: "72% суммы возвратов пришлись на перенос группового занятия. Добавь выбор новой даты перед возвратом — это сохранит заказ без принуждения клиента.",
+        title: "Возвраты связаны с неутверждёнными правками",
+        text: "72% суммы возвратов пришлось на заказы, где клиент не утвердил финальную версию в срок. Добавь лимит правок и чёткий дедлайн — это сохранит заказ.",
         note: "Вывод построен по статусам заказов и возвратам эквайринга."
       },
       payout: {
@@ -796,15 +827,15 @@
       ordersCopilotAction.textContent = "Комплект добавлен на витрину";
       const response = document.getElementById("ordersCopilotResponse");
       response.querySelector("strong").textContent = "Комплект опубликован";
-      response.querySelector("p").textContent = "Макияж и набор ухода объединены в одну карточку за 4 900 ₽. Теперь можно измерять attach rate и оплаченную выручку комплекта.";
+      response.querySelector("p").textContent = "8 роликов и обложки объединены в одну карточку за 24 000 ₽. Теперь можно измерять attach rate и оплаченную выручку комплекта.";
       response.querySelector("small").textContent = "Изменение можно отменить удалением карточки в каталоге.";
     });
 
     const growthStages = {
       start: ["Первая витрина опубликована", "Подключены только необходимые способы оплаты: СБП, карты и AlfaPay. Следующий продукт появится после подтверждённого сигнала роста."],
-      regular: ["Покупатели возвращаются через одинаковый интервал", "AI предложит абонемент или рекуррентный платёж, когда регулярность подтвердится данными повторных заказов."],
-      offline: ["Появилась постоянная офлайн-точка", "AlfaPOS, mPOS и Альфа-Касса объединят оплату в студии с заказами Витрины и общей аналитикой."],
-      team: ["В бизнесе появились исполнители", "Массовые выплаты и чаевые раскроются после настройки ролей и корректной договорной модели."],
+      regular: ["Клиенты возвращаются за следующим пакетом", "AI предложит абонемент на ежемесячный контент или рекуррентный платёж, когда регулярность подтвердится данными повторных заказов."],
+      offline: ["Появилась съёмочная студия или точка", "AlfaPOS, mPOS и Альфа-Касса объединят офлайн-оплату с заказами Витрины и общей аналитикой."],
+      team: ["В бизнесе появились исполнители", "Массовые выплаты монтажёрам, операторам и чаевые раскроются после настройки ролей и корректной договорной модели."],
       business: ["Самозанятости становится недостаточно", "Правила, а не LLM, проверят ограничения и предложат переход на ИП, РКО и подходящий налоговый контур."],
       checkout: ["Каталог переезжает на собственный сайт", "Alfa Checkout + Analytics SDK сохранят ID товаров, историю, воронку, когорты, эксперименты и связи между товарами. При внешней CRM подключится отраслевая интеграция."]
     };
@@ -948,8 +979,8 @@
     }
 
     const orderChartData = {
-      7: { total: "84 360 ₽", delta: "+18% к прошлой неделе", values: [210, 180, 145, 82, 160, 135, 48] },
-      30: { total: "312 480 ₽", delta: "+24% к прошлому месяцу", values: [190, 165, 145, 120, 100, 78, 55] }
+      7: { total: "86 200 ₽", delta: "+24% к прошлой неделе", values: [210, 180, 145, 82, 160, 135, 48] },
+      30: { total: "160 360 ₽", delta: "+24% к прошлому месяцу", values: [190, 165, 145, 120, 100, 78, 55] }
     };
     prepChartData(orderChartData);
 
@@ -1026,7 +1057,7 @@
         const image = document.getElementById("productImage").value.trim() || "✨";
         const category = document.getElementById("productCategory").value;
         const desc = document.getElementById("productDesc").value.trim();
-        const type = category === "Услуга" ? "service" : category === "Мастер-класс" ? "event" : category === "Абонемент" ? "subscription" : category === "Предзаказ" ? "preorder" : "product";
+        const type = category === "Видео-пакет" ? "service" : category === "Услуга" ? "service" : category === "Мастер-класс" ? "event" : category === "Абонемент" ? "subscription" : category === "Предзаказ" ? "preorder" : "product";
 
         if (!name || !price) return;
 
