@@ -97,11 +97,11 @@
       const raw = localStorage.getItem("alfaVitrina_products");
       let products = raw ? JSON.parse(raw) : [...DEFAULT_PRODUCTS];
 
-      if (localStorage.getItem("alfaVitrina_productsVersion") !== "4") {
+      if (localStorage.getItem("alfaVitrina_productsVersion") !== "5") {
         const isOldDemo = products.some((product) => /Nike|Adidas|New Balance|Макияж|Набор домашнего ухода|Мастер-класс по макияжу/i.test(product.name));
-        if (isOldDemo) products = [...DEFAULT_PRODUCTS];
+        if (isOldDemo || products.length < DEFAULT_PRODUCTS.length) products = [...DEFAULT_PRODUCTS];
         localStorage.setItem("alfaVitrina_products", JSON.stringify(products));
-        localStorage.setItem("alfaVitrina_productsVersion", "4");
+        localStorage.setItem("alfaVitrina_productsVersion", "5");
       }
 
       products = products.map((product) => ({
